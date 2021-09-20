@@ -1,0 +1,174 @@
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html,
+body,
+#root,
+.mainContainer {
+  height: 100%;
+}
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+.login_Card {
+  padding: 50px;
+}
+.login_text {
+  margin-bottom: 20px !important;
+  text-align: center;
+  font-weight: bold;
+  color: #464d69;
+}
+.login_paper {
+  margin-top: 30%;
+  padding: 15%;
+  border: 1px solid rgb(220, 220, 220, 0.8);
+  box-shadow: 10px 10px rgb(220, 220, 220, 0.6),
+    -5px -5px rgb(220, 220, 220, 0.6) !important;
+}
+.sigin_btn,
+.sigin_btn:hover {
+  background-color: rgb(0, 122, 255, 0.9) !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+.profile_img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 1px 1px #d0d0d0;
+}
+.circular_progress {
+  color: #fff !important;
+  width: 15px !important;
+  height: 15px !important;
+}
+.homeLink {
+  text-decoration: none !important;
+}
+.hideClass {
+  display: none !important;
+}
+.displayClass {
+  height: 100% !important;
+  background: none !important;
+  box-shadow: 1px -5px 15px #d0d0d0, 0px 0px 10px #fff;
+}
+.Home_leftsidebar {
+  height: 100%;
+  padding: 10px !important;
+}
+.home_navBar {
+  background-color: rgb(0, 122, 255, 0.9) !important;
+}
+.leftsidebarOptions {
+  margin-top: 10px !important;
+}
+.FormButtons {
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #d0d0d0;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(0, 122, 255, 0.9);
+  color: #fff;
+}
+select {
+  -ms-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.age {
+  margin: 15px 0;
+}
+.compart {
+  margin-bottom: 15px;
+}
+label {
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 5px;
+  font-weight: 500;
+}
+.FormInput,
+input[type='date'],
+select {
+  width: 250px;
+  height: 30px;
+  border-radius: 5px;
+  padding: 0 10px;
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  outline: none;
+  margin: 5px 0;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.login_fields {
+  height: 40px;
+  margin: 0 0 30px 0;
+}
+.error {
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px !important;
+  margin: 0 0 5px 0;
+}
+.DataTable {
+  box-shadow: 1px 1px rgb(220, 220, 220, 0.8), -1px -1px rgb(220, 220, 220, 0.8) !important;
+  width: 96% !important;
+  margin: 0 2% !important;
+}
+.loginFormControl {
+  width: 100% !important;
+}
+.GreetUser {
+  color: rgb(0, 122, 255, 0.9);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  width: 96% !important;
+  margin: 20px 2% !important;
+}
+.UserName {
+  color: rgb(0, 122, 255);
+  font-size: 30px;
+}
+.tableProgress {
+  color: rgb(0, 122, 255, 0.9) !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+.sideBarBtn {
+  width: 100%;
+}
+.MuiButton-label {
+  justify-content: space-between !important;
+}
+.home_toolbar {
+  justify-content: space-between;
+}
+.home_tableProgress {
+  color: #fff !important;
+  width: 25px !important;
+  height: 25px !important;
+}
+.sidebarRightIcon {
+  color: rgb(0, 122, 255, 0.9) !important;
+}
+button:disabled,button[disabled] {
+  background-color: rgb(0, 122, 255, 0.6) !important;
+  }
+@media screen and (max-width: 767px) {
+  .login_Card {
+    padding: 50px 20px;
+  }
+  .login_paper {
+    margin-top: 50px;
+  }
+}

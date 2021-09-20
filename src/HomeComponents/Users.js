@@ -15,19 +15,17 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import UsersForm from '../Forms/UsersForm';
-import  {ModifyUser} from '../Reducers/UsersReducer';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendUserData, removeUserData, editUserData } from '../Action';
 
 function UsersTable(props) {
-  const { dispatch, data, sessionData, usersData } = props;
+  const { dispatch, data, sessionData, usersData, isLoading} = props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
     editStatus: false
   });
-  const [progStatus, setProgStatus] = useState(false);
   const [delayRow, setdelayRow] = useState(false);
 
   const handleOpen = () => {
@@ -42,9 +40,6 @@ function UsersTable(props) {
 
   function handleDelete(obj) {
     dispatch(removeUserData(obj));
-    dispatch(ModifyUser());
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   function handleEdit(obj) {
@@ -65,8 +60,6 @@ function UsersTable(props) {
       editStatus: dialogStatus.editStatus,
       editIndex: dialogStatus.editIndex
     });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   if (
@@ -76,10 +69,8 @@ function UsersTable(props) {
     var userdata = dialogStatus.dispatchValue;
     if (dialogStatus.editStatus == false) {
       dispatch(appendUserData(userdata));
-      dispatch(ModifyUser());
     } else {
       dispatch(editUserData(userdata, userdata.id));
-      dispatch(ModifyUser());
     }
     setDialogStatus({
       status: false,
@@ -108,7 +99,7 @@ function UsersTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {progStatus == false ? '' : <CircularProgress className="tableProgress"/>}
+              {!isLoading ? '' : <CircularProgress className="tableProgress"/>}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -155,7 +146,8 @@ const mapStateToProps = state => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
-    usersData: state.UsersReducer && state.UsersReducer.usersData
+    usersData: state.UsersReducer && state.UsersReducer.usersData,
+    isLoading : state.ClientReducer && state.ClientReducer.isLoading,
   };
 };
 

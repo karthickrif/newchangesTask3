@@ -9,51 +9,56 @@ import {
 } from '../Action';
 import axios from 'axios';
 const usersState = {
-  usersData: []
+  usersData: [],
+  isLoading : false
 };
 
 const UsersReducer = (state = usersState, action) => {
   switch (action.type) {
     case 'GetUsersData':
       return {
-        usersData: action.value
+        usersData: action.value,
+        isLoading : false
       };
     case 'AppendUserData':
-      var temp = _.concat(state.usersData, action.value);
       return {
-        usersData: action.value.id != undefined ? temp : state.usersData,
-        method: 'POST',
-        formData: action.value,
-        actionUrl: 'https://staging-api.esquiretek.com/users'
+        usersData: state.usersData,
+        isLoading : true,
       };
     case 'RemoveUserData':
-      temp = _.filter(state.usersData, function(n) {
-        return n.id != action.value.id;
-      });
       return {
-        usersData: temp,
-        method: 'DELETE',
-        actionUrl: 'https://staging-api.esquiretek.com/users/' + action.value
+        usersData: state.usersData,
+        isLoading : true,
       };
     case 'EditUserData':
-      let updatedState;
-      if (action.status == 'Updated') {
-        updatedState = _.map(state.usersData, values => {
-          if (action.userId == values.id) {
-            values = action.value;
+      return {
+        usersData: state.usersData,
+        isLoading : true,
+      };
+      case 'UpdateUsersResponse':
+        if (action.prevAction == 'AppendUserData') {
+          var temp = _.concat(state.usersData, action.response);
+        } else if (action.prevAction == 'RemoveUserData') {
+          temp = _.filter(state.usersData, function(n) {
+            return n.id != action.response.id;
+          });
+        } else if (action.prevAction == 'EditUserData') {
+          var temp = _.map(state.usersData, (values) => {
+          if (action.response.id == values.id) {
+            values = action.response;
           }
           values = values;
           return values;
         });
-      }
-      return {
-        usersData: action.status == 'Updated' ? updatedState : state.usersData,
-        method: 'PUT',
-        actionUrl: 'https://staging-api.esquiretek.com/users/' + action.userId,
-        formData: action.value,
-        userId: action.userId
-      };
-
+        }
+  
+        console.log('ClientReducer', action, temp);
+        return {
+          usersData: action.status == 'Success' && action.response != undefined
+              ? temp
+              : state.usersData,
+          isLoading: false,
+        };
     default:
       return state;
   }
@@ -76,35 +81,5 @@ export const GetUsersTable = () => async (dispatch, getState) => {
     })
     .catch(error => {
       // console.log(error);
-    });
-};
-
-export const ModifyUser = () => (dispatch, getState) => {
-  const token = getState().LoginReducer.authToken;
-  const method = getState().UsersReducer.method;
-  let formData = getState().UsersReducer.formData;
-  const actionUrl = getState().UsersReducer.actionUrl;
-  const userId = getState().UsersReducer.userId;
-  // console.log("ModifyUser",method,formData,actionUrl);
-  axios({
-    method: method,
-    url: actionUrl,
-    headers: {
-      authorization: token
-    },
-    data: JSON.stringify(formData)
-  })
-    .then(response => {
-      // console.log('ModifyUser_response', response);
-      if (method == 'POST') {
-        dispatch(appendUserData(response.data));
-      } else if (method == 'DELETE') {
-        dispatch(removeUserData(response.data));
-      } else if (method == 'PUT') {
-        dispatch(editUserData(response.data, userId, 'Updated'));
-      }
-    })
-    .catch(error => {
-      // console.log('err', error);
     });
 };

@@ -15,9 +15,9 @@ const validate = values => {
   }
   if (!values.phone) {
     errors.phone = 'Required';
-  } else if (values.phone.match('^[0-9]*$') == null) {
+  } else if (values.phone.match('^[0-9.-]*$') == null) {
     errors.phone = 'Enter valid Contact number';
-  } else if (values.phone.length != 10) {
+  } else if (values.phone.length != 12) {
     errors.phone = 'Enter valid Contact number';
   }
   return errors;
@@ -58,23 +58,26 @@ const renderPhone = ({
         {...input}
         type={type}
         placeholder={placeholder}
-        maxLength="10"
+        maxLength="12"
       />
       {touched &&
         ((error && <div className="error">{error}</div>) || (warning && <span>{warning}</span>))}
     </div>
   );
 };
-const normalizePhone = (value) => {
-  const validatephone = value.replace(/[^\d]/g, '')
-  console.log("Phone",validatephone)
-  if(validatephone.length === 3){
-    return validatephone + '-';
+const phoneFormatter = (number) => {
+  if (!number) return '';
+  // NNN-NNN-NNNN
+  if(number.length == 4){
+    return number + '-';
+  }else if(number.length == 8){
+    return number + '-';
   }
-  if(validatephone.length === 6){
-    return validatephone + '-';
-  }
- }
+  // const splitter = /.{1,3}/g;
+  // number = number.substring(0, 10);
+  // return number.substring(0, 7).match(splitter).join('-') + number.substring(7);
+};
+
 
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
@@ -112,7 +115,8 @@ function ClientForm(props) {
             component={renderPhone}
             type="text"
             placeholder="9999-999-999"
-            maxLength="10"
+            maxLength="12"
+            format={phoneFormatter}
             // normalize={normalizePhone}
           />
         </div>

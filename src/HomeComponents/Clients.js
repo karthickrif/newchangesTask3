@@ -19,9 +19,11 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendClientData, removeClientData, editClientData } from '../Action';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
 function ClientsTable(props) {
-  const { dispatch, data, sessionData, clientData, isLoading} = props;
+  const { dispatch, data, sessionData, clientData, isLoading, isError} = props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
     editStatus: false,
@@ -82,6 +84,7 @@ function ClientsTable(props) {
     setdelayRow(true);
   },2000)
   return (
+    <>
     <TableContainer component={Paper} className="DataTable">
       <Table>
         <TableHead>
@@ -144,6 +147,17 @@ function ClientsTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    {/* <Snackbar
+    open={isError != undefined && isError.status == true}
+    autoHideDuration={5000}
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    onClose={handleClose}
+  >
+    <MuiAlert severity="error" elevation={6} variant="filled">
+      {isError.status == true && isError.message != undefined ? isError.message[0] : 'Error'}
+    </MuiAlert>
+  </Snackbar> */}
+  </>
   );
 }
 
@@ -153,6 +167,7 @@ const mapStateToProps = (state) => {
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     clientData: state.ClientReducer && state.ClientReducer.clientData,
     isLoading : state.ClientReducer && state.ClientReducer.isLoading,
+    isError : state.ClientReducer && state.ClientReducer.isError,
   };
 };
 

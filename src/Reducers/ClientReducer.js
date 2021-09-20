@@ -64,10 +64,10 @@ const ClientReducer = (state = clientState, action) => {
             ? temp
             : state.clientData,
         isLoading: false,
-        isError : {
-          status : true,
-        message : errorMsg,
-        }
+        // isError : {
+        //   status : true,
+        // message : errorMsg,
+        // }
       };
     default:
       return state;

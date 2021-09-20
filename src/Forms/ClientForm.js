@@ -7,7 +7,7 @@ const validate = values => {
   const errors = {};
   if (!values.name) {
     errors.name = 'Required';
-  } else if (values.name.match('^[a-zA-Z ]*$') == null) {
+  } else if (values.name.match('^[a-zA-Z0-9]*$') == null) {
     errors.name = 'Name fields contain only Alphabets';
   }
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -17,7 +17,7 @@ const validate = values => {
     errors.phone = 'Required';
   } else if (values.phone.match('^[0-9]*$') == null) {
     errors.phone = 'Enter valid Contact number';
-  } else if (values.phone.length > 10) {
+  } else if (values.phone.length != 10) {
     errors.phone = 'Enter valid Contact number';
   }
   return errors;
@@ -49,7 +49,7 @@ const renderPhone = ({
   label,
   type,
   placeholder,
-  meta: { asyncValidating, touched, error, warning }
+  meta: { asyncValidating, touched, error, warning,},
 }) => {
   return (
     <div>
@@ -65,11 +65,21 @@ const renderPhone = ({
     </div>
   );
 };
+const normalizePhone = (value) => {
+  const validatephone = value.replace(/[^\d]/g, '')
+  console.log("Phone",validatephone)
+  if(validatephone.length === 3){
+    return validatephone + '-';
+  }
+  if(validatephone.length === 6){
+    return validatephone + '-';
+  }
+ }
 
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="clientsForm">
       <div className="input_area">
         <div className="name">
           <div className="clientName">
@@ -103,6 +113,7 @@ function ClientForm(props) {
             type="text"
             placeholder="9999-999-999"
             maxLength="10"
+            normalize={normalizePhone}
           />
         </div>
 
@@ -131,13 +142,6 @@ function ClientForm(props) {
           disabled={pristine || submitting}
         >
           Submit
-        </button>
-        <button
-          className="FormButtons"
-          disabled={pristine || submitting}
-          onClick={reset}
-        >
-          Reset
         </button>
       </div>
     </form>

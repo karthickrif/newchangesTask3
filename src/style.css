@@ -65,6 +65,9 @@ body,
 .leftsidebarOptions {
   margin-top: 10px !important;
 }
+.button_area {
+  text-align: center;
+}
 .FormButtons {
   width: 120px;
   height: 40px;
@@ -98,8 +101,8 @@ label {
 .FormInput,
 input[type='date'],
 select {
-  width: 250px;
-  height: 30px;
+  width: 350px;
+  height: 35px;
   border-radius: 5px;
   padding: 0 10px;
   background-color: #fff;
@@ -161,9 +164,11 @@ select {
 .sidebarRightIcon {
   color: rgb(0, 122, 255, 0.9) !important;
 }
-button:disabled,button[disabled] {
+button:disabled,
+button[disabled] {
   background-color: rgb(0, 122, 255, 0.6) !important;
-  }
+}
+
 @media screen and (max-width: 767px) {
   .login_Card {
     padding: 50px 20px;

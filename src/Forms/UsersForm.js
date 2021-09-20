@@ -113,13 +113,6 @@ function UsersForm(props) {
         >
           Submit
         </button>
-        <button
-          className="FormButtons"
-          disabled={pristine || submitting}
-          onClick={reset}
-        >
-          Reset
-        </button>
       </div>
     </form>
   );

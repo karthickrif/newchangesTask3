@@ -24,16 +24,20 @@ function* loginAsync(action) {
 const getAuthToken = (state) => state.LoginReducer.authToken;
 
 function* asyncAPIData(action) {
+  try{
   const authToken = yield select(getAuthToken);
   const ApiResponse = yield call(ModifyClient, action, authToken);
   // yield delay(5000);
   yield put({
     type: action.target,
-    response: ApiResponse,
-    status: 'Success',
+    response: ApiResponse.status == 200 ? ApiResponse.data : '',
+    status: ApiResponse.status == 200 ? 'Success' :  ApiResponse.response.data,
     prevAction: action.type,
   });
-  console.log('ApiResponse', ApiResponse, action.type);
+  console.log('ApiResponseIve', ApiResponse.response, action.type);
+}catch(e){
+  console.log("asyncAPIDataError",e);
+}
 }
 
 export function* rootSaga() {

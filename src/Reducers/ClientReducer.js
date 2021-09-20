@@ -12,6 +12,7 @@ import axios from 'axios';
 const clientState = {
   clientData: [],
   isLoading: false,
+  isError : false,
 };
 const ClientReducer = (state = clientState, action) => {
   switch (action.type) {
@@ -19,21 +20,25 @@ const ClientReducer = (state = clientState, action) => {
       return {
         clientData: action.value,
         isLoading: false,
+        isError : state.isError,
       };
     case 'AppendClientData':
       return {
         clientData: state.clientData,
         isLoading: true,
+        isError : state.isError,
       };
     case 'removeClientData':
       return {
         clientData: state.clientData,
         isLoading: true,
+        isError : state.isError,
       };
     case 'editClientData':
       return {
         clientData: state.clientData,
         isLoading: true,
+        isError : state.isError,
       };
     case 'UpdateClientResponse':
       if (action.prevAction == 'AppendClientData') {
@@ -51,7 +56,7 @@ const ClientReducer = (state = clientState, action) => {
           return values;
         });
       }
-
+      var errorMsg =action.status.error !=undefined ? _.values(action.status.error) : '';
       console.log('ClientReducer', action, temp);
       return {
         clientData:
@@ -59,6 +64,10 @@ const ClientReducer = (state = clientState, action) => {
             ? temp
             : state.clientData,
         isLoading: false,
+        isError : {
+          status : true,
+        message : errorMsg,
+        }
       };
     default:
       return state;
@@ -85,33 +94,3 @@ export const GetClientTable = () => (dispatch, getState) => {
       // console.log("err",error);
     });
 };
-
-// export const ModifyClient = () => (dispatch, getState) => {
-//   const token = getState().LoginReducer.authToken;
-//   const method = getState().ClientReducer.method;
-//   let formData = getState().ClientReducer.formData;
-//   const actionUrl = getState().ClientReducer.actionUrl;
-//   const clientID = getState().ClientReducer.clientId;
-//   // console.log("ModifyClient",method,formData,actionUrl);
-//   axios({
-//     method: method,
-//     url: actionUrl,
-//     headers: {
-//       authorization: token,
-//     },
-//     data: JSON.stringify(formData),
-//   })
-//     .then((response) => {
-//       // console.log('ModifyClient_response', response);
-//       if (method == 'POST') {
-//         dispatch(appendClientData(response.data));
-//       } else if (method == 'DELETE') {
-//         dispatch(removeClientData(response.data));
-//       } else if (method == 'PUT') {
-//         dispatch(editClientData(response.data, clientID, 'Updated'));
-//       }
-//     })
-//     .catch((error) => {
-//       // console.log('err', error);
-//     });
-// };

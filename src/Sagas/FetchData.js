@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 var LoginAPI = 'https://staging-api.esquiretek.com/login';
 var SessionAPI = 'https://staging-api.esquiretek.com/users/me';
@@ -39,29 +38,26 @@ export function FetchfromSessionApi(obj) {
 }
 
 export function ModifyClient(apiCall, authToken) {
-  console.log('ModifyClient', apiCall, authToken);
-  const request = axios({
-    method: apiCall.method,
-    url: apiCall.actionUrl,
-    headers: {
-      authorization: authToken,
-    },
-    data: JSON.stringify(apiCall.formData),
-  })
-    .then((response) => {
-      console.log('ModifyClient_response', response);
-      // if (apiCall.method == 'POST') {
-      //   dispatch(appendClientData(response.data));
-      // } else if (apiCall.method == 'DELETE') {
-      //   dispatch(removeClientData(response.data));
-      // } else if (method == 'PUT') {
-      //   dispatch(editClientData(response.data, clientID, 'Updated'));
-      // }
-      return response.data;
+  // console.log('ModifyClient', apiCall, authToken);
+  try {
+    const request = axios({
+      method: apiCall.method,
+      url: apiCall.actionUrl,
+      headers: {
+        authorization: authToken,
+      },
+      data: JSON.stringify(apiCall.formData),
     })
-    .catch((error) => {
-      console.log('err', error);
-      return error;
-    });
-  return request;
+      .then((response) => {
+        console.log('ModifyClient_response',response);
+        return response;
+      })
+      .catch((error) => {
+        console.log('err', error.response);
+        return error;
+      });
+    return request;
+  } catch (e) {
+    console.log('ErrorError', e);
+  }
 }

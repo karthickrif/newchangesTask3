@@ -147,7 +147,7 @@ const mapStateToProps = state => {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     usersData: state.UsersReducer && state.UsersReducer.usersData,
-    isLoading : state.ClientReducer && state.ClientReducer.isLoading,
+    isLoading : state.UsersReducer && state.UsersReducer.isLoading,
   };
 };
 

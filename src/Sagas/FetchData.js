@@ -57,7 +57,7 @@ export function ModifyClient(apiCall, authToken) {
       // } else if (method == 'PUT') {
       //   dispatch(editClientData(response.data, clientID, 'Updated'));
       // }
-      return response;
+      return response.data;
     })
     .catch((error) => {
       console.log('err', error);

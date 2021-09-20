@@ -35,25 +35,29 @@ export function getUsersData(val) {
 export function appendClientData(val) {
   return {
     type: 'AppendClientData',
-    formData: val,
     method: 'POST',
-    actionUrl: 'https://staging-api.esquiretek.com/clients'
+    actionUrl: 'https://staging-api.esquiretek.com/clients',
+    formData: val,
+    target : 'UpdateClientResponse'
   };
 }
 
-export function removeClientData(val) {
+export function removeClientData(clientId) {
   return {
     type: 'removeClientData',
-    value: val
+    method: 'DELETE',
+    actionUrl: 'https://staging-api.esquiretek.com/clients/' + clientId,
+    target : 'UpdateClientResponse'
   };
 }
 
-export function editClientData(val, index,status) {
+export function editClientData(val, clientId) {
   return {
     type: 'editClientData',
-    value: val,
-    clientId: index,
-    status : status,
+    method: 'PUT',
+    actionUrl:'https://staging-api.esquiretek.com/clients/' + clientId,
+    formData: val,
+    target : 'UpdateClientResponse'
   };
 }
 

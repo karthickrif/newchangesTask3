@@ -15,14 +15,13 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ClientForm from '../Forms/ClientForm';
-import { ModifyClient } from '../Reducers/ClientReducer';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendClientData, removeClientData, editClientData } from '../Action';
 
 function ClientsTable(props) {
-  const { dispatch, data, sessionData, clientData} = props;
+  const { dispatch, data, sessionData, clientData, isLoading} = props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
     editStatus: false,
@@ -41,7 +40,6 @@ function ClientsTable(props) {
 
   function handleDelete(obj) {
     dispatch(removeClientData(obj));
-    dispatch(ModifyClient());
     setProgStatus(true);
     setTimeout(() => setProgStatus(false), 2000);
   }
@@ -75,10 +73,8 @@ function ClientsTable(props) {
     var clientdata = dialogStatus.dispatchValue;
     if (dialogStatus.editStatus == false) {
       dispatch(appendClientData(clientdata));
-      dispatch(ModifyClient());
     } else {
       dispatch(editClientData(clientdata, clientdata.id));
-      dispatch(ModifyClient());
     }
     setDialogStatus({
       status: false,
@@ -106,7 +102,7 @@ function ClientsTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {progStatus == false ? (
+              {isLoading == false ? (
                 ''
               ) : (
                 <CircularProgress className="tableProgress" />
@@ -161,6 +157,7 @@ const mapStateToProps = (state) => {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     clientData: state.ClientReducer && state.ClientReducer.clientData,
+    isLoading : state.ClientReducer && state.ClientReducer.isLoading,
   };
 };
 

@@ -11,48 +11,54 @@ import axios from 'axios';
 
 const clientState = {
   clientData: [],
+  isLoading: false,
 };
 const ClientReducer = (state = clientState, action) => {
   switch (action.type) {
     case 'GetClientData':
       return {
         clientData: action.value,
+        isLoading: false,
       };
     case 'AppendClientData':
-      var temp = _.concat(state.clientData, action.response);
-      console.log("ClientReducer",action);
       return {
-        clientData: action.response != undefined ? temp : state.clientData,
-        // formData: action.value,
+        clientData: state.clientData,
+        isLoading: true,
       };
     case 'removeClientData':
-      temp = _.filter(state.clientData, function (n) {
-        return n.id != action.value.id;
-      });
       return {
-        clientData: temp,
-        method: 'DELETE',
-        actionUrl: 'https://staging-api.esquiretek.com/clients/' + action.value,
+        clientData: state.clientData,
+        isLoading: true,
       };
     case 'editClientData':
-      let updatedState;
-      if (action.status == 'Updated') {
-        updatedState = _.map(state.clientData, (values) => {
-          if (action.clientId == values.id) {
-            values = action.value;
+      return {
+        clientData: state.clientData,
+        isLoading: true,
+      };
+    case 'UpdateClientResponse':
+      if (action.prevAction == 'AppendClientData') {
+        var temp = _.concat(state.clientData, action.response);
+      } else if (action.prevAction == 'removeClientData') {
+        var temp = _.filter(state.clientData, function (n) {
+          return n.id != action.response.id;
+        });
+      } else if (action.prevAction == 'editClientData') {
+        var temp = _.map(state.clientData, (values) => {
+          if (action.response.id == values.id) {
+            values = action.response;
           }
           values = values;
           return values;
         });
       }
+
+      console.log('ClientReducer', action, temp);
       return {
         clientData:
-          action.status == 'Updated' ? updatedState : state.clientData,
-        method: 'PUT',
-        actionUrl:
-          'https://staging-api.esquiretek.com/clients/' + action.clientId,
-        formData: action.value,
-        clientId: action.clientId,
+          action.status == 'Success' && action.response != undefined
+            ? temp
+            : state.clientData,
+        isLoading: false,
       };
     default:
       return state;
@@ -80,32 +86,32 @@ export const GetClientTable = () => (dispatch, getState) => {
     });
 };
 
-export const ModifyClient = () => (dispatch, getState) => {
-  const token = getState().LoginReducer.authToken;
-  const method = getState().ClientReducer.method;
-  let formData = getState().ClientReducer.formData;
-  const actionUrl = getState().ClientReducer.actionUrl;
-  const clientID = getState().ClientReducer.clientId;
-  // console.log("ModifyClient",method,formData,actionUrl);
-  axios({
-    method: method,
-    url: actionUrl,
-    headers: {
-      authorization: token,
-    },
-    data: JSON.stringify(formData),
-  })
-    .then((response) => {
-      // console.log('ModifyClient_response', response);
-      if (method == 'POST') {
-        dispatch(appendClientData(response.data));
-      } else if (method == 'DELETE') {
-        dispatch(removeClientData(response.data));
-      } else if (method == 'PUT') {
-        dispatch(editClientData(response.data, clientID, 'Updated'));
-      }
-    })
-    .catch((error) => {
-      // console.log('err', error);
-    });
-};
+// export const ModifyClient = () => (dispatch, getState) => {
+//   const token = getState().LoginReducer.authToken;
+//   const method = getState().ClientReducer.method;
+//   let formData = getState().ClientReducer.formData;
+//   const actionUrl = getState().ClientReducer.actionUrl;
+//   const clientID = getState().ClientReducer.clientId;
+//   // console.log("ModifyClient",method,formData,actionUrl);
+//   axios({
+//     method: method,
+//     url: actionUrl,
+//     headers: {
+//       authorization: token,
+//     },
+//     data: JSON.stringify(formData),
+//   })
+//     .then((response) => {
+//       // console.log('ModifyClient_response', response);
+//       if (method == 'POST') {
+//         dispatch(appendClientData(response.data));
+//       } else if (method == 'DELETE') {
+//         dispatch(removeClientData(response.data));
+//       } else if (method == 'PUT') {
+//         dispatch(editClientData(response.data, clientID, 'Updated'));
+//       }
+//     })
+//     .catch((error) => {
+//       // console.log('err', error);
+//     });
+// };

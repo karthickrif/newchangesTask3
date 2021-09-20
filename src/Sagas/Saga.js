@@ -25,15 +25,22 @@ const getAuthToken = (state) => state.LoginReducer.authToken;
 
 function* asyncAPIData(action) {
   const authToken = yield select(getAuthToken);
-  const ApiResponse = yield call(ModifyClient, action,authToken);
+  const ApiResponse = yield call(ModifyClient, action, authToken);
   // yield delay(5000);
-  yield put({ type: action.type, response: ApiResponse, status: 'Success'});
-  console.log("ApiResponse",ApiResponse);
+  yield put({
+    type: action.target,
+    response: ApiResponse,
+    status: 'Success',
+    prevAction: action.type,
+  });
+  console.log('ApiResponse', ApiResponse, action.type);
 }
 
 export function* rootSaga() {
   yield all([
     takeLatest('GetLoginData', loginAsync),
     takeLatest('AppendClientData', asyncAPIData),
+    takeLatest('removeClientData', asyncAPIData),
+    takeLatest('editClientData', asyncAPIData),
   ]);
 }

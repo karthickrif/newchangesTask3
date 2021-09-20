@@ -64,25 +64,32 @@ export function editClientData(val, clientId) {
 export function appendCasesData(val) {
   return {
     type: 'AppendCasesData',
-    value: val
+    method: 'POST',
+    actionUrl: 'https://staging-api.esquiretek.com/cases',
+    formData: val,
+    target : 'UpdateCasesResponse',
   };
 }
 
-export function removeCasesData(val) {
+export function removeCasesData(caseId) {
   return {
     type: 'removeCasesData',
-    value: val
+    method: 'DELETE',
+    actionUrl: 'https://staging-api.esquiretek.com/cases/' + caseId,
+    target : 'UpdateCasesResponse',
   };
 }
 
-export function editCasesData(val, index,status) {
+export function editCasesData(val, caseId) {
   return {
     type: 'editCasesData',
-    value: val,
-    caseId: index,
-    status : status,
+    method: 'PUT',
+    actionUrl: 'https://staging-api.esquiretek.com/cases/' + caseId,
+    formData: val,
+    target : 'UpdateCasesResponse',
   };
 }
+
 export function appendUserData(val) {
   return {
     type: 'AppendUserData',

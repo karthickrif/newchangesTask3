@@ -9,52 +9,54 @@ import {
   editCasesData
 } from '../Action';
 const casesState = {
-  casesData: []
+  casesData: [],
+  isLoading: false,
 };
 
 const CasesReducer = (state = casesState, action) => {
   switch (action.type) {
     case 'GetCasesData':
       return {
-        casesData: action.value
+        casesData: action.value,
+        isLoading: false,
       };
       case 'AppendCasesData':
-      var temp = _.concat(state.casesData, action.value);
       return {
-        casesData: action.value.id != undefined ? temp : state.casesData,
-        method: 'POST',
-        formData: action.value,
-        actionUrl: 'https://staging-api.esquiretek.com/cases'
+        casesData: state.casesData,
+        isLoading: true,
       };
       case 'removeCasesData':
-        temp = _.filter(state.casesData, function(n) {
-          return n.id != action.value.id;
-        });
         return {
-          casesData: temp,
-          method: 'DELETE',
-          actionUrl: 'https://staging-api.esquiretek.com/cases/' + action.value
+          casesData: state.casesData,
+        isLoading: true,
+          
         };
       case 'editCasesData':
-        let updatedState;
-        if (action.status == 'Updated') {
-          updatedState = _.map(state.casesData, values => {
-            if (action.caseId == values.id) {
-              values = action.value;
-            }
-            values = values;
-            return values;
-          });
-        }
         return {
-          casesData:
-            action.status == 'Updated' ? updatedState : state.casesData,
-          method: 'PUT',
-          actionUrl:
-            'https://staging-api.esquiretek.com/cases/' + action.caseId,
-          formData: action.value,
-          caseId: action.caseId
+          casesData: state.casesData,
+          isLoading: true,
         };
+        case 'UpdateCasesResponse':
+          if (action.prevAction == 'AppendCasesData') {
+            var temp = _.concat(state.casesData, action.response);
+          } else if (action.prevAction == 'removeCasesData') {
+            temp = _.filter(state.casesData, function(n) {
+              return n.id != action.response.id;
+            });
+          } else if (action.prevAction == 'editCasesData') {
+            var temp = _.map(state.casesData, (values) => {
+              if (action.response.id == values.id) {
+                values = action.response;
+              }
+              values = values;
+              return values;
+            });
+          }
+          return {
+            casesData:
+              action.status == 'Success' && action.response != undefined ? temp : state.casesData,
+            isLoading: false,
+          };
     default:
       return state;
   }
@@ -76,35 +78,5 @@ export const GetCasesTable = () => (dispatch, getState) => {
     })
     .catch(error => {
       // console.log(error);
-    });
-};
-
-export const ModifyCases = () => (dispatch, getState) => {
-  const token = getState().LoginReducer.authToken;
-  const method = getState().CasesReducer.method;
-  let formData = getState().CasesReducer.formData;
-  const actionUrl = getState().CasesReducer.actionUrl;
-  const caseId = getState().CasesReducer.caseId;
-  // console.log("ModifyCase",method,formData,actionUrl);
-  axios({
-    method: method,
-    url: actionUrl,
-    headers: {
-      authorization: token
-    },
-    data: JSON.stringify(formData)
-  })
-    .then(response => {
-      // console.log('ModifyCases_response', response);
-      if (method == 'POST') {
-        dispatch(appendCasesData(response.data));
-      } else if (method == 'DELETE') {
-        dispatch(removeCasesData(response.data));
-      } else if (method == 'PUT') {
-        dispatch(editCasesData(response.data, caseId, 'Updated'));
-      }
-    })
-    .catch(error => {
-      // console.log('err', error);
     });
 };

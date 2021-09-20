@@ -42,5 +42,10 @@ export function* rootSaga() {
     takeLatest('AppendClientData', asyncAPIData),
     takeLatest('removeClientData', asyncAPIData),
     takeLatest('editClientData', asyncAPIData),
+    takeLatest('AppendCasesData', asyncAPIData),
+    takeLatest('removeCasesData', asyncAPIData),
+    takeLatest('editCasesData', asyncAPIData),
+
+    
   ]);
 }

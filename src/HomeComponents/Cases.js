@@ -15,16 +15,14 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import CasesForm from '../Forms/CasesForm';
-import { ModifyCases } from '../Reducers/CasesReducer';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData } from '../Action';
 
 function CasesTable(props) {
-  const { dispatch, data, sessionData, casesData } = props;
+  const { dispatch, data, sessionData, casesData, isLoading} = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });
-  const [progStatus, setProgStatus] = useState(false);
   const [delayRow, setdelayRow] = useState(false);
 
   const handleOpen = () => {
@@ -39,9 +37,6 @@ function CasesTable(props) {
 
   function handleDelete(obj) {
     dispatch(removeCasesData(obj));
-    dispatch(ModifyCases());
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   function handleEdit(obj) {
@@ -62,8 +57,6 @@ function CasesTable(props) {
       editStatus: dialogStatus.editStatus,
       editIndex: dialogStatus.editIndex,
     });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   if (
@@ -73,10 +66,8 @@ function CasesTable(props) {
     var casesdata = dialogStatus.dispatchValue;
     if (dialogStatus.editStatus == false) {
       dispatch(appendCasesData(casesdata));
-      dispatch(ModifyCases());
     } else {
       dispatch(editCasesData(casesdata, casesdata.id));
-      dispatch(ModifyCases());
     }
     setDialogStatus({
       status: false,
@@ -108,7 +99,7 @@ function CasesTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {progStatus == false ? (
+              {!isLoading ? (
                 ''
               ) : (
                 <CircularProgress className="tableProgress" />
@@ -166,6 +157,7 @@ const mapStateToProps = (state) => {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     casesData: state.CasesReducer && state.CasesReducer.casesData,
+    isLoading : state.CasesReducer && state.CasesReducer.isLoading,
   };
 };
 

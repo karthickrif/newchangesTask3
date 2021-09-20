@@ -26,7 +26,6 @@ function ClientsTable(props) {
     status: false,
     editStatus: false,
   });
-  const [progStatus, setProgStatus] = useState(false);
   const [delayRow, setdelayRow] = useState(false);
   const handleOpen = () => {
     setDialogStatus({ status: true, editStatus: false });
@@ -40,8 +39,6 @@ function ClientsTable(props) {
 
   function handleDelete(obj) {
     dispatch(removeClientData(obj));
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   function handleEdit(obj) {
@@ -62,8 +59,6 @@ function ClientsTable(props) {
       editStatus: dialogStatus.editStatus,
       editIndex: dialogStatus.editIndex,
     });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
   }
 
   if (
@@ -102,7 +97,7 @@ function ClientsTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {isLoading == false ? (
+              {!isLoading ? (
                 ''
               ) : (
                 <CircularProgress className="tableProgress" />

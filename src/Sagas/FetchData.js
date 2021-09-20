@@ -7,13 +7,13 @@ export function FetchFromLoginApi(obj) {
   const request = axios({
     method: 'POST',
     url: LoginAPI,
-    data: obj
+    data: obj,
   })
-    .then(response => {
+    .then((response) => {
       // console.log('loginApi', response);
       return response.data;
     })
-    .catch(error => {
+    .catch((error) => {
       // console.log('login', error);
       return error;
     });
@@ -25,15 +25,43 @@ export function FetchfromSessionApi(obj) {
     method: 'GET',
     url: SessionAPI,
     headers: {
-      authorization: obj
-    }
+      authorization: obj,
+    },
   })
-    .then(response => {
+    .then((response) => {
       // console.log('sessionApi', response);
       return response.data;
     })
-    .catch(error => {
+    .catch((error) => {
       // console.log(error);
+    });
+  return request;
+}
+
+export function ModifyClient(apiCall, authToken) {
+  console.log('ModifyClient', apiCall, authToken);
+  const request = axios({
+    method: apiCall.method,
+    url: apiCall.actionUrl,
+    headers: {
+      authorization: authToken,
+    },
+    data: JSON.stringify(apiCall.formData),
+  })
+    .then((response) => {
+      console.log('ModifyClient_response', response);
+      // if (apiCall.method == 'POST') {
+      //   dispatch(appendClientData(response.data));
+      // } else if (apiCall.method == 'DELETE') {
+      //   dispatch(removeClientData(response.data));
+      // } else if (method == 'PUT') {
+      //   dispatch(editClientData(response.data, clientID, 'Updated'));
+      // }
+      return response;
+    })
+    .catch((error) => {
+      console.log('err', error);
+      return error;
     });
   return request;
 }

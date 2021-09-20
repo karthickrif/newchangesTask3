@@ -35,7 +35,9 @@ export function getUsersData(val) {
 export function appendClientData(val) {
   return {
     type: 'AppendClientData',
-    value: val
+    formData: val,
+    method: 'POST',
+    actionUrl: 'https://staging-api.esquiretek.com/clients'
   };
 }
 

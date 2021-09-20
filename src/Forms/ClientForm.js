@@ -113,7 +113,7 @@ function ClientForm(props) {
             type="text"
             placeholder="9999-999-999"
             maxLength="10"
-            normalize={normalizePhone}
+            // normalize={normalizePhone}
           />
         </div>
 

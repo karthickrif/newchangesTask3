@@ -5,40 +5,39 @@ import {
   getClientData,
   appendClientData,
   removeClientData,
-  editClientData
+  editClientData,
 } from '../Action';
 import axios from 'axios';
 
 const clientState = {
-  clientData: []
+  clientData: [],
 };
 const ClientReducer = (state = clientState, action) => {
   switch (action.type) {
     case 'GetClientData':
       return {
-        clientData: action.value
+        clientData: action.value,
       };
     case 'AppendClientData':
-      var temp = _.concat(state.clientData, action.value);
+      var temp = _.concat(state.clientData, action.response);
+      console.log("ClientReducer",action);
       return {
-        clientData: action.value.id != undefined ? temp : state.clientData,
-        method: 'POST',
-        formData: action.value,
-        actionUrl: 'https://staging-api.esquiretek.com/clients'
+        clientData: action.response != undefined ? temp : state.clientData,
+        // formData: action.value,
       };
     case 'removeClientData':
-      temp = _.filter(state.clientData, function(n) {
+      temp = _.filter(state.clientData, function (n) {
         return n.id != action.value.id;
       });
       return {
         clientData: temp,
         method: 'DELETE',
-        actionUrl: 'https://staging-api.esquiretek.com/clients/' + action.value
+        actionUrl: 'https://staging-api.esquiretek.com/clients/' + action.value,
       };
     case 'editClientData':
       let updatedState;
       if (action.status == 'Updated') {
-        updatedState = _.map(state.clientData, values => {
+        updatedState = _.map(state.clientData, (values) => {
           if (action.clientId == values.id) {
             values = action.value;
           }
@@ -53,7 +52,7 @@ const ClientReducer = (state = clientState, action) => {
         actionUrl:
           'https://staging-api.esquiretek.com/clients/' + action.clientId,
         formData: action.value,
-        clientId: action.clientId
+        clientId: action.clientId,
       };
     default:
       return state;
@@ -69,14 +68,14 @@ export const GetClientTable = () => (dispatch, getState) => {
     method: 'GET',
     url: 'https://staging-api.esquiretek.com/clients',
     headers: {
-      authorization: token
-    }
+      authorization: token,
+    },
   })
-    .then(response => {
+    .then((response) => {
       // console.log('GetUserTable_response', response);
       dispatch(getClientData(response.data));
     })
-    .catch(error => {
+    .catch((error) => {
       // console.log("err",error);
     });
 };
@@ -92,11 +91,11 @@ export const ModifyClient = () => (dispatch, getState) => {
     method: method,
     url: actionUrl,
     headers: {
-      authorization: token
+      authorization: token,
     },
-    data: JSON.stringify(formData)
+    data: JSON.stringify(formData),
   })
-    .then(response => {
+    .then((response) => {
       // console.log('ModifyClient_response', response);
       if (method == 'POST') {
         dispatch(appendClientData(response.data));
@@ -106,7 +105,7 @@ export const ModifyClient = () => (dispatch, getState) => {
         dispatch(editClientData(response.data, clientID, 'Updated'));
       }
     })
-    .catch(error => {
+    .catch((error) => {
       // console.log('err', error);
     });
 };

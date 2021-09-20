@@ -1,5 +1,9 @@
-import { takeLatest, put, call, delay } from 'redux-saga/effects';
-import { FetchFromLoginApi, FetchfromSessionApi } from './FetchData';
+import { takeLatest, put, call, delay, all, select } from 'redux-saga/effects';
+import {
+  FetchFromLoginApi,
+  FetchfromSessionApi,
+  ModifyClient,
+} from './FetchData';
 
 function* loginAsync(action) {
   const authData = yield call(FetchFromLoginApi, action.value);
@@ -7,17 +11,29 @@ function* loginAsync(action) {
   if (authData.authToken != undefined) {
     const sessionData = yield call(FetchfromSessionApi, authData.authToken);
     yield put({ type: 'ReceiveApiData', value: sessionData });
-    yield put({ type : 'ReceiveAuthToken' , value: authData.authToken})
-    yield put({ type : 'FailedAuthToken' , value: authData,status : "success"})
+    yield put({ type: 'ReceiveAuthToken', value: authData.authToken });
+    yield put({ type: 'FailedAuthToken', value: authData, status: 'success' });
     yield delay(5000);
-    yield put({ type : 'FailedAuthToken' , value: authData, status : ""});
+    yield put({ type: 'FailedAuthToken', value: authData, status: '' });
   } else {
-    yield put({ type : 'FailedAuthToken' , value: authData, status : "failed"})
+    yield put({ type: 'FailedAuthToken', value: authData, status: 'failed' });
     yield delay(5000);
-    yield put({ type : 'FailedAuthToken' , value: authData, status : ""});
+    yield put({ type: 'FailedAuthToken', value: authData, status: '' });
   }
+}
+const getAuthToken = (state) => state.LoginReducer.authToken;
+
+function* asyncAPIData(action) {
+  const authToken = yield select(getAuthToken);
+  const ApiResponse = yield call(ModifyClient, action,authToken);
+  // yield delay(5000);
+  yield put({ type: action.type, response: ApiResponse, status: 'Success'});
+  console.log("ApiResponse",ApiResponse);
 }
 
 export function* rootSaga() {
-  yield takeLatest('GetLoginData', loginAsync);
+  yield all([
+    takeLatest('GetLoginData', loginAsync),
+    takeLatest('AppendClientData', asyncAPIData),
+  ]);
 }

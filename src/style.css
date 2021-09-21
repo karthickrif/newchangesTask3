@@ -68,7 +68,7 @@ body,
 .button_area {
   text-align: center;
 }
-.FormButtons {
+/* .FormButtons {
   width: 120px;
   height: 40px;
   border-radius: 5px;
@@ -79,7 +79,7 @@ body,
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(0, 122, 255, 0.9);
   color: #fff;
-}
+} */
 select {
   -ms-box-sizing: content-box;
   -moz-box-sizing: content-box;

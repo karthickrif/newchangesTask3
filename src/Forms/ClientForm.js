@@ -8,7 +8,8 @@ import {
   renderPhone,
   phoneFormatter,
 } from './validation/RenderComponents';
-import { StyledLabel } from './validation/FieldComponents';
+import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
+
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
   return (
@@ -75,13 +76,12 @@ function ClientForm(props) {
         </div>
       </div>
       <div className="button_area">
-        <button
-          className="FormButtons"
+        <StyledSubmit
           type="submit"
           disabled={pristine || submitting}
         >
           Submit
-        </button>
+        </StyledSubmit>
       </div>
     </form>
   );

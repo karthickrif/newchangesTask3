@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import validate from './validation/FormValidation';
 import {renderField, renderSelectField} from './validation/RenderComponents';
+import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
 
 function CasesForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
@@ -12,7 +13,7 @@ function CasesForm(props) {
       <div className="input_area">
         <div className="name">
           <div className="compart">
-            <label htmlFor="clientID">Clients</label>
+            <StyledLabel htmlFor="clientID">Clients</StyledLabel>
             <Field name="client_id" type="input" component={renderSelectField}>
               <option>Select Any</option>
               {clientData != undefined && clientData.length > 0 ? (
@@ -29,19 +30,19 @@ function CasesForm(props) {
         </div>
 
         <div className="compart">
-          <label htmlFor="case_title">Case Title</label>
+          <StyledLabel htmlFor="case_title">Case Title</StyledLabel>
 
           <Field name="case_title" component={renderField} type="text" />
         </div>
 
         <div className="compart">
-          <label htmlFor="case_number">Case Number</label>
+          <StyledLabel htmlFor="case_number">Case Number</StyledLabel>
 
           <Field name="case_number" component={renderField} type="text" />
         </div>
 
         <div className="compart">
-          <label>Claim Number</label>
+          <StyledLabel htmlFor="claim_number">Claim Number</StyledLabel>
 
           <Field
             name="claim_number"
@@ -51,23 +52,23 @@ function CasesForm(props) {
         </div>
 
         <div className="compart">
-          <label htmlFor="matter_id">Matter ID</label>
+          <StyledLabel htmlFor="matter_id">Matter ID</StyledLabel>
 
           <Field name="matter_id" type="text" component={renderField} />
         </div>
 
         <div className="compart">
-          <label htmlFor="clientDOB">Date of Loss</label>
+          <StyledLabel htmlFor="clientDOB">Date of Loss</StyledLabel>
           <Field name="date_of_loss" type="date" component={renderField} />
         </div>
 
         <div className="compart">
-          <label htmlFor="county">County</label>
+          <StyledLabel htmlFor="county">County</StyledLabel>
           <Field name="county" type="text" component={renderField} />
         </div>
 
         <div className="compart">
-          <label htmlFor="state">State</label>
+          <StyledLabel htmlFor="state">State</StyledLabel>
           <Field name="state" type="text" component={renderSelectField}>
             <option>Select Any</option>
             <option value="CA">California</option>
@@ -77,13 +78,12 @@ function CasesForm(props) {
         </div>
       </div>
       <div className="button_area">
-        <button
-          className="FormButtons"
+        <StyledSubmit
           type="submit"
           disabled={pristine || submitting}
         >
           Submit
-        </button>
+        </StyledSubmit>
       </div>
     </form>
   );

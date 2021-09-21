@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledField } from './FieldComponents';
+import { StyledField, StyledSelectField} from './FieldComponents';
 export const renderField = ({
   input,
   label,
@@ -30,7 +30,7 @@ export const renderSelectField = ({
 }) => (
   <div>
     <div>
-      <StyledField {...input}>{children}</StyledField>
+      <StyledSelectField {...input}>{children}</StyledSelectField>
       {touched && error && <div className="error">{error}</div>}
     </div>
   </div>

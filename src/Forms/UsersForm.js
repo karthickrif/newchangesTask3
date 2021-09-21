@@ -4,6 +4,7 @@ import '../style.css';
 import { connect } from 'react-redux';
 import validate from './validation/FormValidation';
 import {renderField, renderSelectField} from './validation/RenderComponents';
+import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
 
 function UsersForm(props) {
   const { handleSubmit, pristine, reset, submitting, usersData } = props;
@@ -11,46 +12,42 @@ function UsersForm(props) {
     <form onSubmit={handleSubmit}>
       <div className="main">
         <div className="compart">
-          <div className="name">
-            <label htmlFor="name">Name</label>
+            <StyledLabel htmlFor="name">Name</StyledLabel>
             <Field name="name" type="text" component={renderField} />
-          </div>
         </div>
 
         <div className="compart">
-          <label htmlFor="email">Email</label>
-
+          <StyledLabel htmlFor="email">Email</StyledLabel>
           <Field name="email" component={renderField} type="email" />
         </div>
 
         <div className="compart">
-          <label htmlFor="password">Password</label>
-
+          <StyledLabel htmlFor="password">Password</StyledLabel>
           <Field name="password" component={renderField} type="text" />
         </div>
 
         <div className="compart">
-          <label>Role</label>
+          <StyledLabel htmlFor="role">Role</StyledLabel>
           <Field name="role" component={renderSelectField} type="select">
             <option>Select Any</option>
             <option value="lawyer">Attorney</option>
             <option value="paralegal">Non-Attorney</option>
           </Field>
         </div>
-        <div className="compart">
-          <label htmlFor="isAdmin">Admin</label>
 
+        <div className="compart">
+          <StyledLabel htmlFor="isAdmin">Admin</StyledLabel>
           <Field name="is_admin" component="input" type="checkbox" format={v => v === 1}  normalize={v => v ? 1 : 0} />
         </div>
       </div>
+      
       <div className="button_area">
-        <button
-          className="FormButtons"
+        <StyledSubmit
           type="submit"
           disabled={pristine || submitting}
         >
           Submit
-        </button>
+        </StyledSubmit>
       </div>
     </form>
   );

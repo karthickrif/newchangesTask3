@@ -12,6 +12,7 @@ import {
   DialogContent,
   IconButton,
   CircularProgress,
+  Checkbox,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import UsersForm from '../Forms/UsersForm';
@@ -100,7 +101,6 @@ function UsersTable(props) {
           <TableRow>
             <TableCell align="left">Name</TableCell>
             <TableCell align="left">Email</TableCell>
-            <TableCell align="left">Password</TableCell>
             <TableCell align="left">Role</TableCell>
             <TableCell align="left">Admin</TableCell>
             <TableCell align="left">
@@ -119,9 +119,8 @@ function UsersTable(props) {
               <TableRow key={index}>
                 <TableCell align="left">{values.name}</TableCell>
                 <TableCell align="left">{values.email}</TableCell>
-                <TableCell align="left">{values.password}</TableCell>
                 <TableCell align="left">{values.role}</TableCell>
-                <TableCell align="left">{values.is_admin}</TableCell>
+                <TableCell align="left"><Checkbox checked={values.is_admin}/></TableCell>
                 <TableCell align="left">
                   <IconButton id={index} onClick={() => handleEdit(index)}>
                     <EditOutlinedIcon />

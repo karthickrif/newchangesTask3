@@ -24,7 +24,7 @@ function UsersForm(props) {
 
         <div className="compart">
           <StyledLabel htmlFor="password">Password</StyledLabel>
-          <Field name="password" component={renderField} type="text" />
+          <Field name="password" id="userPassword" component={renderField} type="password"/>
         </div>
 
         <div className="compart">
@@ -38,7 +38,7 @@ function UsersForm(props) {
 
         <div className="compart">
           <StyledLabel htmlFor="isAdmin">Admin</StyledLabel>
-          <Field name="is_admin" component={Checkbox} type="checkbox" format={v => v === 1}  normalize={v => v ? 1 : 0} />
+          <Field name="is_admin" component="input" type="checkbox"/>
         </div>
       </div>
       

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import Object from 'lodash/Object';
 import Array from 'lodash/Array';
 import axios from 'axios';
+import moment from 'moment';
 
 const casesState = {
   casesData: [],
@@ -58,8 +59,13 @@ const CasesReducer = (state = casesState, action) => {
       }else if (action.prevAction == 'GetCasesData') {
         var temp = action.response;
       }
+
       var errorMsg =
       action.status.error != undefined ? _.values(action.status.error) : '';
+
+      var formattedDate = action.response != undefined ? temp.map(values => {
+        return  values.date_of_loss = moment(values.date_of_loss).format('YYYY-MM-DD');
+       }) : '';
       return {
         casesData:
           action.status == 'Success' && action.response != undefined

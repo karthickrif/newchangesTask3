@@ -24,7 +24,7 @@ import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
 function UsersTable(props) {
-  const { dispatch, data, sessionData, usersData, isLoading, isError, navProgress } =
+  const { dispatch, usersData, isLoading, isError, navProgress } =
     props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
@@ -118,7 +118,7 @@ function UsersTable(props) {
                 <TableCell align="left">{values.name}</TableCell>
                 <TableCell align="left">{values.email}</TableCell>
                 <TableCell align="left">{values.role}</TableCell>
-                <TableCell align="left"><Checkbox checked={values.is_admin}/></TableCell>
+                <TableCell align="left"><Checkbox checked={values.is_admin == 1 ||values.is_admin ? true : false}/></TableCell>
                 <TableCell align="left">
                   <IconButton id={index} onClick={() => handleEdit(index)}>
                     <EditOutlinedIcon />
@@ -173,8 +173,8 @@ function UsersTable(props) {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.LoginReducer && state.LoginReducer.loginData,
-    sessionData: state.LoginReducer && state.LoginReducer.sessionData,
+    // data: state.LoginReducer && state.LoginReducer.loginData,
+    // sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     usersData: state.UsersReducer && state.UsersReducer.usersData,
     isLoading: state.UsersReducer && state.UsersReducer.isLoading,
     navProgress: state.UsersReducer && state.UsersReducer.navProgress,

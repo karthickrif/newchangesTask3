@@ -59,8 +59,10 @@ const ClientReducer = (state = clientState, action) => {
       }else if (action.prevAction == 'GetClientData') {
         var temp = action.response;
       }
+      
       var errorMsg =
         action.status.error != undefined ? _.values(action.status.error) : '';
+
       var formattedDate = action.response != undefined ? temp.map(values => {
        return  values.dob = moment(values.dob).format('YYYY-MM-DD');
       }) : '';

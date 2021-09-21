@@ -21,6 +21,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData, getCasesData} from '../Action';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import moment from 'moment';
 
 function CasesTable(props) {
   const { dispatch, data, sessionData, casesData, isLoading, isError, navProgress} = props;
@@ -119,7 +120,7 @@ function CasesTable(props) {
                 <TableCell align="left">{values.case_number}</TableCell>
                 <TableCell align="left">{values.claim_number}</TableCell>
                 <TableCell align="left">{values.matter_id}</TableCell>
-                <TableCell align="left">{values.date_of_loss}</TableCell>
+                <TableCell align="left">{moment(values.date_of_loss).format('MM/DD/YYYY')}</TableCell>
                 <TableCell align="left">{values.county}</TableCell>
                 <TableCell align="left">{values.state}</TableCell>
                 <TableCell align="left">

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import validate from './validation/FormValidation';
 import {renderField, renderSelectField} from './validation/RenderComponents';
 import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
+import {MenuItem} from '@material-ui/core';
 
 function CasesForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
@@ -15,15 +16,15 @@ function CasesForm(props) {
           <div className="compart">
             <StyledLabel htmlFor="clientID">Clients</StyledLabel>
             <Field name="client_id" type="input" component={renderSelectField}>
-              <option>Select Any</option>
+              <MenuItem>Select Any</MenuItem>
               {clientData != undefined && clientData.length > 0 ? (
                 clientData.map((values) => (
-                  <option value={values.id}>{values.id != undefined ? values.name : "Default"}</option>
+                  <MenuItem value={values.id}>{values.id != undefined ? values.name : "Default"}</MenuItem>
                 ))
               ) : (
-                <option value="29f3a9f3-c568-4713-89c3-95b835b9f3dc">
+                <MenuItem value="29f3a9f3-c568-4713-89c3-95b835b9f3dc">
                   Default
-                </option>
+                </MenuItem>
               )}
             </Field>
           </div>
@@ -70,10 +71,10 @@ function CasesForm(props) {
         <div className="compart">
           <StyledLabel htmlFor="state">State</StyledLabel>
           <Field name="state" type="text" component={renderSelectField}>
-            <option>Select Any</option>
-            <option value="CA">California</option>
-            <option value="TN">Tennesse</option>
-            <option value="TX">Texas</option>
+            <MenuItem>Select Any</MenuItem>
+            <MenuItem value="CA">California</MenuItem>
+            <MenuItem value="TN">Tennesse</MenuItem>
+            <MenuItem value="TX">Texas</MenuItem>
           </Field>
         </div>
       </div>

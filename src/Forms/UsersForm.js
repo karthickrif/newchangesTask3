@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import validate from './validation/FormValidation';
 import {renderField, renderSelectField} from './validation/RenderComponents';
 import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
+import {MenuItem,Checkbox} from '@material-ui/core';
 
 function UsersForm(props) {
   const { handleSubmit, pristine, reset, submitting, usersData } = props;
@@ -29,15 +30,15 @@ function UsersForm(props) {
         <div className="compart">
           <StyledLabel htmlFor="role">Role</StyledLabel>
           <Field name="role" component={renderSelectField} type="select">
-            <option>Select Any</option>
-            <option value="lawyer">Attorney</option>
-            <option value="paralegal">Non-Attorney</option>
+            <MenuItem>Select Any</MenuItem>
+            <MenuItem value="lawyer">Attorney</MenuItem>
+            <MenuItem value="paralegal">Non-Attorney</MenuItem>
           </Field>
         </div>
 
         <div className="compart">
           <StyledLabel htmlFor="isAdmin">Admin</StyledLabel>
-          <Field name="is_admin" component="input" type="checkbox" format={v => v === 1}  normalize={v => v ? 1 : 0} />
+          <Field name="is_admin" component={Checkbox} type="checkbox" format={v => v === 1}  normalize={v => v ? 1 : 0} />
         </div>
       </div>
       

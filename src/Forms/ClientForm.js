@@ -15,7 +15,7 @@ function ClientForm(props) {
   return (
     <form onSubmit={handleSubmit} className="clientsForm">
       <div className="input_area">
-        <div className="name">
+        <div className="compart">
           <div className="clientName">
             <StyledLabel htmlFor="clientName">Client Name</StyledLabel>
             <Field

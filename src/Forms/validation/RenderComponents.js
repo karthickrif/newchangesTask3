@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyledField, StyledSelectField} from './FieldComponents';
+
 export const renderField = ({
   input,
   label,
@@ -58,6 +59,7 @@ export const renderPhone = ({
     </div>
   );
 };
+
 export const phoneFormatter = (number) => {
   if (!number) return '';
   if (number.length == 4) {

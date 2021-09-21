@@ -14,8 +14,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CasesTable from './HomeComponents/Cases';
 import UsersTable from './HomeComponents/Users';
 import ClientsTable from './HomeComponents/Clients';
-import { GetUsersTable } from './Reducers/UsersReducer';
-import { GetCasesTable } from './Reducers/CasesReducer';
 import { GetClientTable } from './Reducers/ClientReducer';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import {
@@ -31,9 +29,9 @@ function HomePage(props) {
   const { dispatch, data, sessionData } = props;
   const [logo, setLogo] = useState({
     img: '',
-    clientcount: 0,
-    casescount: 0,
-    userscount: 0,
+    // clientcount: 0,
+    // casescount: 0,
+    // userscount: 0,
   });
   const [fade, setFade] = useState({
     value: true,
@@ -42,45 +40,45 @@ function HomePage(props) {
   });
   const [progStatus, setProgStatus] = useState(false);
 
-  function getdata() {
-    if (logo.clientcount == 0) {
-      dispatch(GetClientTable());
-    }
-    setLogo({
-      img: logo.img,
-      clientcount: 1,
-      casescount: logo.casescount,
-      userscount: logo.userscount,
-    });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
-  }
-  function getCases() {
-    if (logo.casescount == 0) {
-      dispatch(GetCasesTable());
-    }
-    setLogo({
-      img: logo.img,
-      clientcount: logo.clientcount,
-      casescount: 1,
-      userscount: logo.userscount,
-    });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
-  }
-  function getUsers() {
-    if (logo.userscount == 0) {
-      dispatch(GetUsersTable());
-    }
-    setLogo({
-      img: logo.img,
-      clientcount: logo.clientcount,
-      casescount: logo.casescount,
-      userscount: 1,
-    });
-    setProgStatus(true);
-    setTimeout(() => setProgStatus(false), 2000);
-  }
+  // function getdata() {
+  //   if (logo.clientcount == 0) {
+      
+  //   }
+  //   setLogo({
+  //     img: logo.img,
+  //     clientcount: 1,
+  //     casescount: logo.casescount,
+  //     userscount: logo.userscount,
+  //   });
+  //   setProgStatus(true);
+  //   setTimeout(() => setProgStatus(false), 2000);
+  // }
+  // function getCases() {
+  //   if (logo.casescount == 0) {
+      
+  //   }
+  //   setLogo({
+  //     img: logo.img,
+  //     clientcount: logo.clientcount,
+  //     casescount: 1,
+  //     userscount: logo.userscount,
+  //   });
+  //   setProgStatus(true);
+  //   setTimeout(() => setProgStatus(false), 2000);
+  // }
+  // function getUsers() {
+  //   if (logo.userscount == 0) {
+      
+  //   }
+  //   setLogo({
+  //     img: logo.img,
+  //     clientcount: logo.clientcount,
+  //     casescount: logo.casescount,
+  //     userscount: 1,
+  //   });
+  //   setProgStatus(true);
+  //   setTimeout(() => setProgStatus(false), 2000);
+  // }
 
   function handleFade() {
     if (fade.value == true) {
@@ -124,7 +122,7 @@ function HomePage(props) {
                   </Grid>
                   <Grid item className="leftsidebarOptions">
                     <Link to="/home/clients" className="homeLink">
-                      <Button onClick={getdata} className="sideBarBtn">
+                      <Button className="sideBarBtn">
                         Clients<KeyboardArrowRightIcon fontSize="small" className="sidebarRightIcon"/>
                         
                       </Button>
@@ -132,14 +130,14 @@ function HomePage(props) {
                   </Grid>
                   <Grid item className="leftsidebarOptions">
                     <Link to="/home/cases" className="homeLink">
-                      <Button onClick={getCases} className="sideBarBtn">
+                      <Button className="sideBarBtn">
                         Cases<KeyboardArrowRightIcon fontSize="small" className="sidebarRightIcon"/>
                       </Button>
                     </Link>
                   </Grid>
                   <Grid item className="leftsidebarOptions">
                     <Link to="/home/users" className="homeLink">
-                      <Button onClick={getUsers} className="sideBarBtn">
+                      <Button className="sideBarBtn">
                         Users<KeyboardArrowRightIcon fontSize="small" className="sidebarRightIcon"/>
                       </Button>
                     </Link>

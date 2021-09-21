@@ -19,6 +19,7 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendUserData, removeUserData, editUserData } from '../Action';
+import { GetUsersTable } from '../Reducers/UsersReducer';
 
 function UsersTable(props) {
   const { dispatch, data, sessionData, usersData, isLoading} = props;
@@ -82,7 +83,11 @@ function UsersTable(props) {
 
   setTimeout(()=>{
     setdelayRow(true);
-  },2000)
+  },2000);
+
+  useEffect(()=>{
+    dispatch(GetUsersTable());
+  },[])
   return (
     <TableContainer component={Paper} className="DataTable">
       <Table>

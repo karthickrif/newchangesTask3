@@ -19,6 +19,8 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData } from '../Action';
+import { GetCasesTable } from '../Reducers/CasesReducer';
+
 
 function CasesTable(props) {
   const { dispatch, data, sessionData, casesData, isLoading} = props;
@@ -79,7 +81,11 @@ function CasesTable(props) {
 
   setTimeout(()=>{
     setdelayRow(true);
-  },2000)
+  },2000);
+
+  useEffect(()=>{
+    dispatch(GetCasesTable());
+  },[])
   return (
     <TableContainer component={Paper} className="DataTable">
       <Table>

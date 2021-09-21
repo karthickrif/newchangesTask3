@@ -21,6 +21,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendClientData, removeClientData, editClientData } from '../Action';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import { GetClientTable } from '../Reducers/ClientReducer';
 
 function ClientsTable(props) {
   const { dispatch, data, sessionData, clientData, isLoading, isError} = props;
@@ -82,7 +83,11 @@ function ClientsTable(props) {
   }
   setTimeout(()=>{
     setdelayRow(true);
-  },2000)
+  },2000);
+
+  useEffect(()=>{
+    dispatch(GetClientTable());
+  },[])
   return (
     <>
     <TableContainer component={Paper} className="DataTable">

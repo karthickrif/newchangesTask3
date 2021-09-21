@@ -66,10 +66,10 @@ const ClientReducer = (state = clientState, action) => {
             ? temp
             : state.clientData,
         isLoading: false,
-        // isError : {
-        //   status : true,
-        // message : errorMsg,
-        // }
+        isError :action.status.error != undefined ? {
+          status : true,
+        message : errorMsg,
+        } : false,
         navProgress : false,
       };
     default:

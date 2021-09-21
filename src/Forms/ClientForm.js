@@ -8,7 +8,7 @@ import {
   renderPhone,
   phoneFormatter,
 } from './validation/RenderComponents';
-import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
+import { StyledLabel, StyledSubmit } from './validation/FieldComponents';
 
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
@@ -70,16 +70,13 @@ function ClientForm(props) {
               name="dob"
               type="date"
               component={renderField}
-              dateForm="MM/DD/YYYY"
+              dateFormat="MM/DD/YYYY"
             />
           </div>
         </div>
       </div>
       <div className="button_area">
-        <StyledSubmit
-          type="submit"
-          disabled={pristine || submitting}
-        >
+        <StyledSubmit type="submit" disabled={pristine || submitting}>
           Submit
         </StyledSubmit>
       </div>

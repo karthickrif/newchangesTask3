@@ -19,9 +19,11 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData, getCasesData} from '../Action';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
 function CasesTable(props) {
-  const { dispatch, data, sessionData, casesData, isLoading, navProgress} = props;
+  const { dispatch, data, sessionData, casesData, isLoading, isError, navProgress} = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });
   const [delayRow, setdelayRow] = useState(false);
 
@@ -85,6 +87,7 @@ function CasesTable(props) {
     dispatch(getCasesData());
   }, []);
   return (
+    <>
     <TableContainer component={Paper} className="DataTable">
       <Table>
         <TableHead>
@@ -157,6 +160,17 @@ function CasesTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    <Snackbar
+    open={isError != undefined && isError.status == true}
+    autoHideDuration={5000}
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    onClose={handleClose}
+  >
+    <MuiAlert severity="error" elevation={6} variant="filled">
+      {isError.status == true && isError.message != undefined ? isError.message[0] : 'Error'}
+    </MuiAlert>
+  </Snackbar>
+  </>
   );
 }
 
@@ -166,6 +180,7 @@ const mapStateToProps = (state) => {
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     casesData: state.CasesReducer && state.CasesReducer.casesData,
     isLoading: state.CasesReducer && state.CasesReducer.isLoading,
+    isError : state.CasesReducer && state.CasesReducer.isError,
     navProgress : state.CasesReducer && state.CasesReducer.navProgress,
   };
 };

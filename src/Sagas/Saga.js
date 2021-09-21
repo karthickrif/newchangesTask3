@@ -34,6 +34,15 @@ function* asyncAPIData(action) {
     status: ApiResponse.status == 200 ? 'Success' :  ApiResponse.response.data,
     prevAction: action.type,
   });
+  if(ApiResponse.status != 200){
+    yield delay(3000);
+    yield put({
+      type: action.target,
+      response: ApiResponse.status == 200 ? ApiResponse.data : '',
+      status:'',
+      prevAction: action.type,
+    });
+  }
   console.log('ApiResponseIve', ApiResponse.response, action.type);
 }catch(e){
   console.log("asyncAPIDataError",e);

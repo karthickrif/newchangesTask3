@@ -151,7 +151,7 @@ function ClientsTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
-    {/* <Snackbar
+    <Snackbar
     open={isError != undefined && isError.status == true}
     autoHideDuration={5000}
     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -160,7 +160,7 @@ function ClientsTable(props) {
     <MuiAlert severity="error" elevation={6} variant="filled">
       {isError.status == true && isError.message != undefined ? isError.message[0] : 'Error'}
     </MuiAlert>
-  </Snackbar> */}
+  </Snackbar>
   </>
   );
 }

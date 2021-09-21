@@ -38,12 +38,14 @@ export const renderSelectField = ({
   </div>
 );
 
+
 export const renderPhone = ({
   input,
   label,
   type,
   placeholder,
   meta: { asyncValidating, touched, error, warning },
+  inputProps
 }) => {
   return (
     <div>
@@ -52,7 +54,7 @@ export const renderPhone = ({
         {...input}
         type={type}
         placeholder={placeholder}
-        maxLength="12"
+        inputProps={{maxLength : 12}}
       />
       {touched &&
         ((error && <div className="error">{error}</div>) ||
@@ -61,14 +63,15 @@ export const renderPhone = ({
   );
 };
 
-export const phoneFormatter = (number) => {
-  if (!number) return '';
-  if (number.length == 4) {
-    return number + '-';
-  } else if (number.length == 8) {
-    return number + '-';
+export const phoneFormatter = (values) => {
+  if (!values) return '';
+  if (values.length == 4) {
+    return values + '-';
+  } else if (values.length == 8) {
+    return values + '-';
   }
+  console.log("validation",values)
   // const splitter = /.{1,3}/g;
-  // number = number.substring(0, 10);
-  // return number.substring(0, 7).match(splitter).join('-') + number.substring(7);
+  // values = values.substring(0, 10);
+  // return values.substring(0, 7).match(splitter).join('-') + values.substring(7);
 };

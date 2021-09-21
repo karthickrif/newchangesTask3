@@ -49,7 +49,7 @@ function ClientForm(props) {
             placeholder="9999-999-999"
             maxLength="12"
             format={phoneFormatter}
-            // normalize={normalizePhone}
+            // normalize={phoneFormatter}
           />
         </div>
 

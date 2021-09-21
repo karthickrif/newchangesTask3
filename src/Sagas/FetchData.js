@@ -38,7 +38,7 @@ export function FetchfromSessionApi(obj) {
 }
 
 export function ModifyClient(apiCall, authToken) {
-  // console.log('ModifyClient', apiCall, authToken);
+  console.log('ModifyClient', apiCall, authToken);
   try {
     const request = axios({
       method: apiCall.method,

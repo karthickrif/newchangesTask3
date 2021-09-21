@@ -2,6 +2,8 @@ import _ from 'lodash';
 import Object from 'lodash/Object';
 import Array from 'lodash/Array';
 import axios from 'axios';
+import moment from 'moment';
+
 
 const clientState = {
   clientData: [],
@@ -59,6 +61,9 @@ const ClientReducer = (state = clientState, action) => {
       }
       var errorMsg =
         action.status.error != undefined ? _.values(action.status.error) : '';
+      var formattedDate = action.response != undefined ? temp.map(values => {
+       return  values.dob = moment(values.dob).format('YYYY-MM-DD');
+      }) : '';
       console.log('ClientReducer', action, temp);
       return {
         clientData:

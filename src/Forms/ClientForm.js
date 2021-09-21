@@ -8,7 +8,8 @@ import {
   renderPhone,
   phoneFormatter,
 } from './validation/RenderComponents';
-import { StyledLabel, StyledSubmit } from './validation/FieldComponents';
+import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
+import Moment from 'react-moment';
 
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
@@ -70,7 +71,6 @@ function ClientForm(props) {
               name="dob"
               type="date"
               component={renderField}
-              dateFormat="MM/DD/YYYY"
             />
           </div>
         </div>

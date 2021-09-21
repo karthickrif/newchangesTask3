@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyledField, StyledSelectField} from './FieldComponents';
+import moment from 'react-moment';
 
 export const renderField = ({
   input,

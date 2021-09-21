@@ -5,7 +5,8 @@ import axios from 'axios';
 const usersState = {
   usersData: [],
   navProgress : false,
-  isLoading : false
+  isLoading : false,
+  isError : false,
 };
 
 const UsersReducer = (state = usersState, action) => {
@@ -14,25 +15,29 @@ const UsersReducer = (state = usersState, action) => {
       return {
         usersData:  state.usersData,
         navProgress : true,
-        isLoading : false
+        isLoading : false,
+        isError : false,
       };
     case 'AppendUserData':
       return {
         usersData: state.usersData,
         navProgress : false,
         isLoading : true,
+        isError : false,
       };
     case 'RemoveUserData':
       return {
         usersData: state.usersData,
         navProgress : false,
         isLoading : true,
+        isError : false,
       };
     case 'EditUserData':
       return {
         usersData: state.usersData,
         navProgress : false,
         isLoading : true,
+        isError : false,
       };
       case 'UpdateUsersResponse':
         if (action.prevAction == 'AppendUserData') {
@@ -52,7 +57,8 @@ const UsersReducer = (state = usersState, action) => {
         }else if (action.prevAction == 'GetUsersData') {
           var temp = action.response;
         }
-  
+        var errorMsg =
+        action.status.error != undefined ? _.values(action.status.error) : '';
         console.log('ClientReducer', action, temp);
         return {
           usersData: action.status == 'Success' && action.response != undefined
@@ -60,6 +66,10 @@ const UsersReducer = (state = usersState, action) => {
               : state.usersData,
           isLoading: false,
           navProgress : false,
+          isError :action.status.error != undefined ? {
+            status : true,
+          message : errorMsg,
+          } : false,
         };
     default:
       return state;

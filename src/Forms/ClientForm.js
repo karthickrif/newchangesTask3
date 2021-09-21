@@ -8,7 +8,7 @@ import {
   renderPhone,
   phoneFormatter,
 } from './validation/RenderComponents';
-import { StyledField } from './validation/FieldComponents';
+import { StyledLabel } from './validation/FieldComponents';
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
   return (
@@ -16,8 +16,8 @@ function ClientForm(props) {
       <div className="input_area">
         <div className="name">
           <div className="clientName">
-            <label htmlFor="clientName">Client Name</label>
-            <StyledField
+            <StyledLabel htmlFor="clientName">Client Name</StyledLabel>
+            <Field
               name="name"
               type="text"
               placeholder="Stephen"
@@ -27,7 +27,7 @@ function ClientForm(props) {
         </div>
 
         <div className="compart">
-          <label htmlFor="clientEmail">Email</label>
+          <StyledLabel htmlFor="clientEmail">Email</StyledLabel>
 
           <Field
             name="email"
@@ -38,7 +38,7 @@ function ClientForm(props) {
         </div>
 
         <div className="compart">
-          <label htmlFor="clientPhone">Phone</label>
+          <StyledLabel htmlFor="clientPhone">Phone</StyledLabel>
 
           <Field
             name="phone"
@@ -52,7 +52,7 @@ function ClientForm(props) {
         </div>
 
         <div className="compart">
-          <label>Address</label>
+          <StyledLabel>Address</StyledLabel>
 
           <Field
             name="address"
@@ -63,12 +63,12 @@ function ClientForm(props) {
         </div>
 
         <div className="compart">
-          <label htmlFor="dob">D.O.B</label>
+          <StyledLabel htmlFor="dob">D.O.B</StyledLabel>
           <div>
             <Field
               name="dob"
               type="date"
-              component="input"
+              component={renderField}
               dateForm="MM/DD/YYYY"
             />
           </div>

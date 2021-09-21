@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyledField } from './FieldComponents';
 export const renderField = ({
   input,
   label,
@@ -8,7 +9,7 @@ export const renderField = ({
 }) => {
   return (
     <div>
-      <input
+      <StyledField
         {...input}
         type={type}
         placeholder={placeholder}
@@ -29,7 +30,7 @@ export const renderSelectField = ({
 }) => (
   <div>
     <div>
-      <select {...input}>{children}</select>
+      <StyledField {...input}>{children}</StyledField>
       {touched && error && <div className="error">{error}</div>}
     </div>
   </div>
@@ -44,7 +45,7 @@ export const renderPhone = ({
 }) => {
   return (
     <div>
-      <input
+      <StyledField
         className="FormInput"
         {...input}
         type={type}

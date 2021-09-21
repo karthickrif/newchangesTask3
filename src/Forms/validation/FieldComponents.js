@@ -14,3 +14,10 @@ width: 350px;
   color: #000;
   font-family: Arial, Helvetica, sans-serif;
   `;
+
+export const StyledLabel = styled.label`
+font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 5px;
+  font-weight: 500;
+`;

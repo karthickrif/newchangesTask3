@@ -20,10 +20,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData } from '../Action';
 import { GetCasesTable } from '../Reducers/CasesReducer';
-
-
+import { getCasesData } from '../Action';
 function CasesTable(props) {
-  const { dispatch, data, sessionData, casesData, isLoading} = props;
+  const { dispatch, data, sessionData, casesData, isLoading } = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });
   const [delayRow, setdelayRow] = useState(false);
 
@@ -79,13 +78,13 @@ function CasesTable(props) {
     });
   }
 
-  setTimeout(()=>{
+  setTimeout(() => {
     setdelayRow(true);
-  },2000);
+  }, 2000);
 
-  useEffect(()=>{
-    dispatch(GetCasesTable());
-  },[])
+  useEffect(() => {
+    dispatch(getCasesData());
+  }, []);
   return (
     <TableContainer component={Paper} className="DataTable">
       <Table>
@@ -105,11 +104,7 @@ function CasesTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {!isLoading ? (
-                ''
-              ) : (
-                <CircularProgress className="tableProgress" />
-              )}
+              {!isLoading ? '' : <CircularProgress className="tableProgress" />}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -140,7 +135,15 @@ function CasesTable(props) {
                 </TableCell>
               </TableRow>
             ))
-          ) : delayRow == true ? <TableRow><TableCell align="center" colSpan={10}><div>Oops! No Record Found</div> </TableCell></TableRow> : ''}
+          ) : delayRow == true ? (
+            <TableRow>
+              <TableCell align="center" colSpan={10}>
+                <div>Oops! No Record Found</div>{' '}
+              </TableCell>
+            </TableRow>
+          ) : (
+            ''
+          )}
           <Dialog open={dialogStatus.status} onClose={handleClose}>
             <DialogTitle>
               {dialogStatus.editStatus == true ? 'Edit Case' : 'Add Case'}
@@ -163,7 +166,7 @@ const mapStateToProps = (state) => {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     casesData: state.CasesReducer && state.CasesReducer.casesData,
-    isLoading : state.CasesReducer && state.CasesReducer.isLoading,
+    isLoading: state.CasesReducer && state.CasesReducer.isLoading,
   };
 };
 

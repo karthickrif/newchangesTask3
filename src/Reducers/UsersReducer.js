@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 const usersState = {
   usersData: [],
+  navProgress : false,
   isLoading : false
 };
 
@@ -17,22 +18,26 @@ const UsersReducer = (state = usersState, action) => {
   switch (action.type) {
     case 'GetUsersData':
       return {
-        usersData: action.value,
+        usersData:  state.usersData,
+        navProgress : true,
         isLoading : false
       };
     case 'AppendUserData':
       return {
         usersData: state.usersData,
+        navProgress : false,
         isLoading : true,
       };
     case 'RemoveUserData':
       return {
         usersData: state.usersData,
+        navProgress : false,
         isLoading : true,
       };
     case 'EditUserData':
       return {
         usersData: state.usersData,
+        navProgress : false,
         isLoading : true,
       };
       case 'UpdateUsersResponse':
@@ -50,6 +55,8 @@ const UsersReducer = (state = usersState, action) => {
           values = values;
           return values;
         });
+        }else if (action.prevAction == 'GetUsersData') {
+          var temp = action.response;
         }
   
         console.log('ClientReducer', action, temp);
@@ -58,6 +65,7 @@ const UsersReducer = (state = usersState, action) => {
               ? temp
               : state.usersData,
           isLoading: false,
+          navProgress : false,
         };
     default:
       return state;

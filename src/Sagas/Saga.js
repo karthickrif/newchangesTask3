@@ -43,6 +43,9 @@ function* asyncAPIData(action) {
 export function* rootSaga() {
   yield all([
     takeLatest('GetLoginData', loginAsync),
+    takeLatest('GetClientData', asyncAPIData),
+    takeLatest('GetCasesData', asyncAPIData),
+    takeLatest('GetUsersData', asyncAPIData),
     takeLatest('AppendClientData', asyncAPIData),
     takeLatest('removeClientData', asyncAPIData),
     takeLatest('editClientData', asyncAPIData),

@@ -22,6 +22,7 @@ import { appendClientData, removeClientData, editClientData } from '../Action';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { GetClientTable } from '../Reducers/ClientReducer';
+import {getClientData} from '../Action';
 
 function ClientsTable(props) {
   const { dispatch, data, sessionData, clientData, isLoading, isError} = props;
@@ -86,7 +87,7 @@ function ClientsTable(props) {
   },2000);
 
   useEffect(()=>{
-    dispatch(GetClientTable());
+    dispatch(getClientData());
   },[])
   return (
     <>

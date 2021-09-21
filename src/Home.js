@@ -26,7 +26,7 @@ import {
 } from 'react-router-dom';
 var logo;
 function HomePage(props) {
-  const { dispatch, data, sessionData } = props;
+  const { dispatch, data, sessionData, clientNavProgress, casesNavProgress, usersNavProgress} = props;
   const [logo, setLogo] = useState({
     img: '',
     // clientcount: 0,
@@ -165,10 +165,10 @@ function HomePage(props) {
                 >
                   <MenuIcon />
                 </IconButton>
-                {progStatus == false ? (
-                  ''
-                ) : (
+                {clientNavProgress || casesNavProgress || usersNavProgress? (
                   <CircularProgress className="home_tableProgress" />
+                ) : (
+                  ''
                 )}
               </Toolbar>
             </AppBar>
@@ -197,6 +197,9 @@ const mapStateToProps = (state) => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
+    clientNavProgress : state.ClientReducer && state.ClientReducer.navProgress,
+    casesNavProgress : state.CasesReducer && state.CasesReducer.navProgress,
+    usersNavProgress : state.UsersReducer && state.UsersReducer.navProgress,
   };
 };
 

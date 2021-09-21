@@ -11,34 +11,39 @@ import axios from 'axios';
 
 const clientState = {
   clientData: [],
+  navProgress : false,
   isLoading: false,
-  isError : false,
+  isError: false,
 };
 const ClientReducer = (state = clientState, action) => {
   switch (action.type) {
     case 'GetClientData':
       return {
-        clientData: action.value,
+        clientData: state.clientData,
+        navProgress : true,
         isLoading: false,
-        isError : state.isError,
+        isError: state.isError,
       };
     case 'AppendClientData':
       return {
         clientData: state.clientData,
+        navProgress : false,
         isLoading: true,
-        isError : state.isError,
+        isError: state.isError,
       };
     case 'removeClientData':
       return {
         clientData: state.clientData,
+        navProgress : false,
         isLoading: true,
-        isError : state.isError,
+        isError: state.isError,
       };
     case 'editClientData':
       return {
         clientData: state.clientData,
+        navProgress : false,
         isLoading: true,
-        isError : state.isError,
+        isError: state.isError,
       };
     case 'UpdateClientResponse':
       if (action.prevAction == 'AppendClientData') {
@@ -55,8 +60,11 @@ const ClientReducer = (state = clientState, action) => {
           values = values;
           return values;
         });
+      }else if (action.prevAction == 'GetClientData') {
+        var temp = action.response;
       }
-      var errorMsg =action.status.error !=undefined ? _.values(action.status.error) : '';
+      var errorMsg =
+        action.status.error != undefined ? _.values(action.status.error) : '';
       console.log('ClientReducer', action, temp);
       return {
         clientData:
@@ -68,6 +76,7 @@ const ClientReducer = (state = clientState, action) => {
         //   status : true,
         // message : errorMsg,
         // }
+        navProgress : false,
       };
     default:
       return state;
@@ -75,22 +84,22 @@ const ClientReducer = (state = clientState, action) => {
 };
 export default ClientReducer;
 
-export const GetClientTable = () => (dispatch, getState) => {
-  const token = getState().LoginReducer.authToken;
-  const method = getState().ClientReducer.method;
-  // console.log("GetUserTable",method);
-  axios({
-    method: 'GET',
-    url: 'https://staging-api.esquiretek.com/clients',
-    headers: {
-      authorization: token,
-    },
-  })
-    .then((response) => {
-      // console.log('GetUserTable_response', response);
-      dispatch(getClientData(response.data));
-    })
-    .catch((error) => {
-      // console.log("err",error);
-    });
-};
+// export const GetClientTable = () => (dispatch, getState) => {
+//   const token = getState().LoginReducer.authToken;
+//   const method = getState().ClientReducer.method;
+//   // console.log("GetUserTable",method);
+//   axios({
+//     method: 'GET',
+//     url: 'https://staging-api.esquiretek.com/clients',
+//     headers: {
+//       authorization: token,
+//     },
+//   })
+//     .then((response) => {
+//       // console.log('GetUserTable_response', response);
+//       dispatch(getClientData(response.data));
+//     })
+//     .catch((error) => {
+//       // console.log("err",error);
+//     });
+// };

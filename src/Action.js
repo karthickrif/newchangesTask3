@@ -10,10 +10,12 @@ export function GetLoginData(val) {
   };
 }
 
-export function getClientData(val) {
+export function getClientData() {
   return {
     type: GET_CLIENTDATA,
-    value: val,
+    method: 'GET',
+    actionUrl: 'https://staging-api.esquiretek.com/clients',
+    target: 'UpdateClientResponse',
   };
 }
 
@@ -21,14 +23,18 @@ export function getCasesData(val) {
   console.log('getCasesData', val);
   return {
     type: GET_CASESDATA,
-    value: val,
+    method: 'GET',
+    actionUrl: 'https://staging-api.esquiretek.com/cases',
+    target: 'UpdateCasesResponse',
   };
 }
 
 export function getUsersData(val) {
   return {
     type: GET_USERSDATA,
-    value: val,
+    method: 'GET',
+    actionUrl: 'https://staging-api.esquiretek.com/users',
+    target: 'UpdateUsersResponse',
   };
 }
 

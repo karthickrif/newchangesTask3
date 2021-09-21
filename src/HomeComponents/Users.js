@@ -20,6 +20,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendUserData, removeUserData, editUserData } from '../Action';
 import { GetUsersTable } from '../Reducers/UsersReducer';
+import {getUsersData} from '../Action';
 
 function UsersTable(props) {
   const { dispatch, data, sessionData, usersData, isLoading} = props;
@@ -86,7 +87,7 @@ function UsersTable(props) {
   },2000);
 
   useEffect(()=>{
-    dispatch(GetUsersTable());
+    dispatch(getUsersData());
   },[])
   return (
     <TableContainer component={Paper} className="DataTable">

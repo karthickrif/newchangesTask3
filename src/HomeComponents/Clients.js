@@ -23,7 +23,7 @@ import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
 function ClientsTable(props) {
-  const { dispatch, data, sessionData, clientData, isLoading, isError} = props;
+  const { dispatch, data, sessionData, clientData, isLoading, isError,navProgress} = props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
     editStatus: false,
@@ -136,7 +136,7 @@ function ClientsTable(props) {
                 </TableCell>
               </TableRow>
             ))
-          ) : delayRow == true ? <TableRow><TableCell align="center" colSpan={7}><div>Oops! No Record Found</div> </TableCell></TableRow> : ''}
+          ) : delayRow == true && !navProgress ? <TableRow><TableCell align="center" colSpan={7}><div>Oops! No Record Found</div> </TableCell></TableRow> : ''}
           <Dialog open={dialogStatus.status} onClose={handleClose}>
             <DialogTitle>
               {dialogStatus.editStatus == true ? 'Edit Client' : 'Add Client'}
@@ -172,6 +172,7 @@ const mapStateToProps = (state) => {
     clientData: state.ClientReducer && state.ClientReducer.clientData,
     isLoading : state.ClientReducer && state.ClientReducer.isLoading,
     isError : state.ClientReducer && state.ClientReducer.isError,
+    navProgress : state.ClientReducer && state.ClientReducer.navProgress,
   };
 };
 

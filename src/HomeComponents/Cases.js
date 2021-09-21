@@ -21,7 +21,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { appendCasesData, removeCasesData, editCasesData, getCasesData} from '../Action';
 
 function CasesTable(props) {
-  const { dispatch, data, sessionData, casesData, isLoading } = props;
+  const { dispatch, data, sessionData, casesData, isLoading, navProgress} = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });
   const [delayRow, setdelayRow] = useState(false);
 
@@ -134,7 +134,7 @@ function CasesTable(props) {
                 </TableCell>
               </TableRow>
             ))
-          ) : delayRow == true ? (
+          ) : delayRow == true && !navProgress ? (
             <TableRow>
               <TableCell align="center" colSpan={10}>
                 <div>Oops! No Record Found</div>{' '}
@@ -166,6 +166,7 @@ const mapStateToProps = (state) => {
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     casesData: state.CasesReducer && state.CasesReducer.casesData,
     isLoading: state.CasesReducer && state.CasesReducer.isLoading,
+    navProgress : state.CasesReducer && state.CasesReducer.navProgress,
   };
 };
 

@@ -11,20 +11,26 @@ import {
   DialogTitle,
   DialogContent,
   IconButton,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import UsersForm from '../Forms/UsersForm';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { appendUserData, removeUserData, editUserData, getUsersData} from '../Action';
+import {
+  appendUserData,
+  removeUserData,
+  editUserData,
+  getUsersData,
+} from '../Action';
 
 function UsersTable(props) {
-  const { dispatch, data, sessionData, usersData, isLoading} = props;
+  const { dispatch, data, sessionData, usersData, isLoading, navProgress } =
+    props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
-    editStatus: false
+    editStatus: false,
   });
   const [delayRow, setdelayRow] = useState(false);
 
@@ -34,7 +40,7 @@ function UsersTable(props) {
 
   const handleClose = () => {
     setDialogStatus({
-      status: false
+      status: false,
     });
   };
 
@@ -48,7 +54,7 @@ function UsersTable(props) {
       dispatchStatus: false,
       dispatchValue: dialogStatus.dispatchValue,
       editStatus: true,
-      editIndex: obj
+      editIndex: obj,
     });
   }
 
@@ -58,7 +64,7 @@ function UsersTable(props) {
       dispatchStatus: true,
       dispatchValue: values,
       editStatus: dialogStatus.editStatus,
-      editIndex: dialogStatus.editIndex
+      editIndex: dialogStatus.editIndex,
     });
   }
 
@@ -76,17 +82,17 @@ function UsersTable(props) {
       status: false,
       dispatchStatus: false,
       dispatchValue: dialogStatus.dispatchValue,
-      editStatus: false
+      editStatus: false,
     });
   }
 
-  setTimeout(()=>{
+  setTimeout(() => {
     setdelayRow(true);
-  },2000);
+  }, 2000);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getUsersData());
-  },[])
+  }, []);
   return (
     <TableContainer component={Paper} className="DataTable">
       <Table>
@@ -103,32 +109,43 @@ function UsersTable(props) {
               </IconButton>
             </TableCell>
             <TableCell align="left">
-              {!isLoading ? '' : <CircularProgress className="tableProgress"/>}
+              {!isLoading ? '' : <CircularProgress className="tableProgress" />}
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {usersData != undefined && usersData.length > 0
-            ? usersData.map((values, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left">{values.name}</TableCell>
-                  <TableCell align="left">{values.email}</TableCell>
-                  <TableCell align="left">{values.password}</TableCell>
-                  <TableCell align="left">{values.role}</TableCell>
-                  <TableCell align="left">{values.is_admin}</TableCell>
-                  <TableCell align="left">
-                    <IconButton id={index} onClick={() => handleEdit(index)}>
-                      <EditOutlinedIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="left">
-                    <IconButton id={index} onClick={() => handleDelete(values.id)}>
-                      <DeleteOutlineIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))
-            :  delayRow == true ? <TableRow><TableCell align="center" colSpan={7}><div>Oops! No Record Found</div> </TableCell></TableRow> : ''}
+          {usersData != undefined && usersData.length > 0 ? (
+            usersData.map((values, index) => (
+              <TableRow key={index}>
+                <TableCell align="left">{values.name}</TableCell>
+                <TableCell align="left">{values.email}</TableCell>
+                <TableCell align="left">{values.password}</TableCell>
+                <TableCell align="left">{values.role}</TableCell>
+                <TableCell align="left">{values.is_admin}</TableCell>
+                <TableCell align="left">
+                  <IconButton id={index} onClick={() => handleEdit(index)}>
+                    <EditOutlinedIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell align="left">
+                  <IconButton
+                    id={index}
+                    onClick={() => handleDelete(values.id)}
+                  >
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : delayRow == true && !navProgress ? (
+            <TableRow>
+              <TableCell align="center" colSpan={7}>
+                <div>Oops! No Record Found</div>{' '}
+              </TableCell>
+            </TableRow>
+          ) : (
+            ''
+          )}
           <Dialog open={dialogStatus.status} onClose={handleClose}>
             <DialogTitle>
               {dialogStatus.editStatus == true ? 'Edit User' : 'Add User'}
@@ -146,22 +163,20 @@ function UsersTable(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     usersData: state.UsersReducer && state.UsersReducer.usersData,
-    isLoading : state.UsersReducer && state.UsersReducer.isLoading,
+    isLoading: state.UsersReducer && state.UsersReducer.isLoading,
+    navProgress: state.UsersReducer && state.UsersReducer.navProgress,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersTable);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

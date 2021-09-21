@@ -1,12 +1,6 @@
 import _ from 'lodash';
 import Object from 'lodash/Object';
 import Array from 'lodash/Array';
-import {
-  getClientData,
-  appendClientData,
-  removeClientData,
-  editClientData,
-} from '../Action';
 import axios from 'axios';
 
 const clientState = {

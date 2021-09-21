@@ -18,9 +18,7 @@ import UsersForm from '../Forms/UsersForm';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { appendUserData, removeUserData, editUserData } from '../Action';
-import { GetUsersTable } from '../Reducers/UsersReducer';
-import {getUsersData} from '../Action';
+import { appendUserData, removeUserData, editUserData, getUsersData} from '../Action';
 
 function UsersTable(props) {
   const { dispatch, data, sessionData, usersData, isLoading} = props;

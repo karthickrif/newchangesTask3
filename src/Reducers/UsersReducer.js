@@ -1,12 +1,6 @@
 import _ from 'lodash';
 import Object from 'lodash/Object';
 import Array from 'lodash/Array';
-import {
-  getUsersData,
-  appendUserData,
-  removeUserData,
-  editUserData
-} from '../Action';
 import axios from 'axios';
 const usersState = {
   usersData: [],
@@ -72,22 +66,3 @@ const UsersReducer = (state = usersState, action) => {
   }
 };
 export default UsersReducer;
-
-export const GetUsersTable = () => async (dispatch, getState) => {
-  const token = getState().LoginReducer.authToken;
-  // console.log("GetUserTable",token);
-  axios({
-    url: 'https://staging-api.esquiretek.com/users',
-    method: 'GET',
-    headers: {
-      authorization: token
-    }
-  })
-    .then(response => {
-      // console.log('GetCasesTable_response', response);
-      dispatch(getUsersData(response.data));
-    })
-    .catch(error => {
-      // console.log(error);
-    });
-};

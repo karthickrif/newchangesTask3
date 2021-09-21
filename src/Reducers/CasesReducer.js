@@ -2,12 +2,7 @@ import _ from 'lodash';
 import Object from 'lodash/Object';
 import Array from 'lodash/Array';
 import axios from 'axios';
-import {
-  getCasesData,
-  appendCasesData,
-  removeCasesData,
-  editCasesData,
-} from '../Action';
+
 const casesState = {
   casesData: [],
   navProgress: false,
@@ -71,21 +66,3 @@ const CasesReducer = (state = casesState, action) => {
   }
 };
 export default CasesReducer;
-
-// export const GetCasesTable = () => (dispatch, getState) => {
-//   const token = getState().LoginReducer.authToken;
-//   axios({
-//     url: 'https://staging-api.esquiretek.com/cases',
-//     method: 'GET',
-//     headers: {
-//       authorization: token,
-//     },
-//   })
-//     .then((response) => {
-//       // console.log('GetCasesTable_response', response);
-//       dispatch(getCasesData(response.data));
-//     })
-//     .catch((error) => {
-//       // console.log(error);
-//     });
-// };

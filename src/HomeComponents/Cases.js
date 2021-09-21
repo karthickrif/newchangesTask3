@@ -18,9 +18,8 @@ import CasesForm from '../Forms/CasesForm';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { appendCasesData, removeCasesData, editCasesData } from '../Action';
-import { GetCasesTable } from '../Reducers/CasesReducer';
-import { getCasesData } from '../Action';
+import { appendCasesData, removeCasesData, editCasesData, getCasesData} from '../Action';
+
 function CasesTable(props) {
   const { dispatch, data, sessionData, casesData, isLoading } = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });

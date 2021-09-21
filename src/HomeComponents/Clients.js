@@ -18,11 +18,9 @@ import ClientForm from '../Forms/ClientForm';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { appendClientData, removeClientData, editClientData } from '../Action';
+import { appendClientData, removeClientData, editClientData, getClientData} from '../Action';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import { GetClientTable } from '../Reducers/ClientReducer';
-import {getClientData} from '../Action';
 
 function ClientsTable(props) {
   const { dispatch, data, sessionData, clientData, isLoading, isError} = props;

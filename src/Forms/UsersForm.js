@@ -2,70 +2,8 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import '../style.css';
 import { connect } from 'react-redux';
-
-const validate = values => {
-  const errors = {};
-  if (!values.name) {
-    errors.name = 'Required';
-  } else if (values.name.match('^[a-zA-Z ]*$') == null) {
-    errors.name = 'Name fields contain only Alphabets';
-  }
-
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Enter a valid Email';
-  }
-  if (!values.lastName) {
-    errors.lastName = 'Required';
-  } else if (values.lastName.match('^[a-zA-Z ]*$') == null) {
-    errors.lastName = 'Name fields contain only Alphabets';
-  }
-  if (!values.password) {
-    errors.password = 'Required';
-  }
-  if (!values.role) {
-    errors.role = 'Required';
-  }
-  return errors;
-};
-
-const renderField = ({
-  input,
-  label,
-  type,
-  placeholder,
-  meta: { asyncValidating, touched, error, warning }
-}) => {
-  return (
-    <div>
-      <input
-        className="FormInput"
-        {...input}
-        type={type}
-        placeholder={placeholder}
-      />
-      {touched &&
-        ((error && <div className="error">{error}</div>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
-  );
-};
-
-const renderSelectField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error },
-  children
-}) => (
-  <div>
-    <div>
-      <select {...input}>{children}</select>
-      {touched && error && <div className="error">{error}</div>}
-    </div>
-  </div>
-);
+import validate from './validation/FormValidation';
+import {renderField, renderSelectField} from './validation/RenderComponents';
 
 function UsersForm(props) {
   const { handleSubmit, pristine, reset, submitting, usersData } = props;

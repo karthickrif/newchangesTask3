@@ -2,63 +2,8 @@ import React from 'react';
 import '../style.css';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-
-const validate = (values) => {
-  const errors = {};
-  if (!values.client_id) {
-    errors.client_id = 'Required';
-  }
-  if (!values.case_title) {
-    errors.case_title = 'Required';
-  }
-  if (!values.case_number) {
-    errors.case_number = 'Required';
-  }
-  if (!values.county) {
-    errors.county = 'Required';
-  }
-  if (!values.state) {
-    errors.state = 'Required';
-  }
-  return errors;
-};
-
-const renderField = ({
-  input,
-  label,
-  type,
-  placeholder,
-  meta: { asyncValidating, touched, error, warning },
-}) => {
-  return (
-    <div>
-      <input
-        className="FormInput"
-        {...input}
-        type={type}
-        placeholder={placeholder}
-      />
-      {touched &&
-        ((error && <div className="error">{error}</div>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
-  );
-};
-
-const renderSelectField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error },
-  children,
-}) => (
-  <div>
-    <div>
-      <select {...input}>{children}</select>
-      {touched && error && <div className="error">{error}</div>}
-    </div>
-  </div>
-);
+import validate from './validation/FormValidation';
+import {renderField, renderSelectField} from './validation/RenderComponents';
 
 function CasesForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;

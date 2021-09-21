@@ -2,83 +2,13 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import '../style.css';
 import { connect } from 'react-redux';
-
-const validate = values => {
-  const errors = {};
-  if (!values.name) {
-    errors.name = 'Required';
-  } else if (values.name.match('^[a-zA-Z0-9]*$') == null) {
-    errors.name = 'Name fields contain only Alphabets';
-  }
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Enter a valid Email';
-  }
-  if (!values.phone) {
-    errors.phone = 'Required';
-  } else if (values.phone.match('^[0-9.-]*$') == null) {
-    errors.phone = 'Enter valid Contact number';
-  } else if (values.phone.length != 12) {
-    errors.phone = 'Enter valid Contact number';
-  }
-  return errors;
-};
-
-const renderField = ({
-  input,
-  label,
-  type,
-  placeholder,
-  meta: { asyncValidating, touched, error, warning }
-}) => {
-  return (
-    <div>
-      <input
-        className="FormInput"
-        {...input}
-        type={type}
-        placeholder={placeholder}
-      />
-      {touched &&
-        ((error && <div className="error">{error}</div>) || (warning && <span>{warning}</span>))}
-    </div>
-  );
-};
-
-const renderPhone = ({
-  input,
-  label,
-  type,
-  placeholder,
-  meta: { asyncValidating, touched, error, warning,},
-}) => {
-  return (
-    <div>
-      <input
-        className="FormInput"
-        {...input}
-        type={type}
-        placeholder={placeholder}
-        maxLength="12"
-      />
-      {touched &&
-        ((error && <div className="error">{error}</div>) || (warning && <span>{warning}</span>))}
-    </div>
-  );
-};
-const phoneFormatter = (number) => {
-  if (!number) return '';
-  // NNN-NNN-NNNN
-  if(number.length == 4){
-    return number + '-';
-  }else if(number.length == 8){
-    return number + '-';
-  }
-  // const splitter = /.{1,3}/g;
-  // number = number.substring(0, 10);
-  // return number.substring(0, 7).match(splitter).join('-') + number.substring(7);
-};
-
-
+import validate from './validation/FormValidation';
+import {
+  renderField,
+  renderPhone,
+  phoneFormatter,
+} from './validation/RenderComponents';
+import { StyledField } from './validation/FieldComponents';
 function ClientForm(props) {
   const { handleSubmit, pristine, reset, submitting, clientData } = props;
   return (
@@ -87,7 +17,7 @@ function ClientForm(props) {
         <div className="name">
           <div className="clientName">
             <label htmlFor="clientName">Client Name</label>
-            <Field
+            <StyledField
               name="name"
               type="text"
               placeholder="Stephen"
@@ -135,7 +65,12 @@ function ClientForm(props) {
         <div className="compart">
           <label htmlFor="dob">D.O.B</label>
           <div>
-            <Field name="dob" type="date" component="input" dateForm="MM/DD/YYYY"/>
+            <Field
+              name="dob"
+              type="date"
+              component="input"
+              dateForm="MM/DD/YYYY"
+            />
           </div>
         </div>
       </div>
@@ -152,27 +87,24 @@ function ClientForm(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
-    clientData: state.ClientReducer && state.ClientReducer.clientData
+    clientData: state.ClientReducer && state.ClientReducer.clientData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
-ClientForm = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClientForm);
+ClientForm = connect(mapStateToProps, mapDispatchToProps)(ClientForm);
 
 export default reduxForm({
   form: 'clientForm',
   validate,
-  asyncBlurFields: ['firstName']
+  asyncBlurFields: ['firstName'],
 })(ClientForm);

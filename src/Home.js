@@ -110,15 +110,31 @@ function HomePage(props) {
               <Fade in={fade.value}>
                 <div>
                   <Grid item>
-                    <img
-                      src={
-                        sessionData != undefined
-                          ? sessionData.practiceDetails.logoFile
-                          : ''
-                      }
-                      alt="profile"
-                      className="profile_img"
-                    />
+                    <Grid container spacing={10}>
+                      <Grid item xs={6}>
+                        <img
+                        src={
+                          sessionData != undefined
+                            ? sessionData.practiceDetails.logoFile
+                            : ''
+                        }
+                        alt="profile"
+                        className="profile_img"
+                      />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <Button variant="contained" className="sigin_btn">
+                            {/* {!signinStatus ? (
+                              'Sign in'
+                            ) : (
+                              <div>
+                                Sign in &nbsp;
+                                {<CircularProgress className="circular_progress" />}
+                              </div>
+                            )} */}Logout
+                          </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item className="leftsidebarOptions">
                     <Link to="/home/clients" className="homeLink">

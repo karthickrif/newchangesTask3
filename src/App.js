@@ -12,8 +12,10 @@ import {
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import ClientsTable from './HomeComponents/Clients';
+import {directLogin} from './Action';
 var route;
 var snack;
+
 function App(props) {
   const { dispatch, data, sessionData, authStatus } = props;
   const [redirect, setRedirect] = useState(false);
@@ -26,6 +28,13 @@ function App(props) {
   function handleClose() {
     // setSnackStatus(false);
   }
+  useEffect(()=>{
+    var locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+      console.log('redirect to home');
+    }
+  },[])
   if (redirect) {
     return (
       <>

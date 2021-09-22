@@ -28,9 +28,6 @@ function* directSignin(action){
   const sessionData = yield call(FetchfromSessionApi, action.authToken);
     yield put({ type: 'ReceiveApiData', value: sessionData });
     yield put({ type: 'ReceiveAuthToken', value: action.authToken });
-    // yield put({ type: 'FailedAuthToken', value: authData, status: 'success' });
-    // yield delay(3000);
-    // yield put({ type: 'FailedAuthToken', value: authData, status: '' });
 }
 function* asyncAPIData(action) {
   try{

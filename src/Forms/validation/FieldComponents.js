@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 import {
   FormControl,
   OutlinedInput,
@@ -23,7 +23,7 @@ width: 350px;
   color: #000;
   font-family: Arial, Helvetica, sans-serif;
   `;
-  export const StyledSelectField = styled(Select)`
+export const StyledSelectField = styled(Select)`
   width: 350px;
     height: 35px;
     border-radius: 5px;
@@ -35,7 +35,7 @@ width: 350px;
     color: #000;
     font-family: Arial, Helvetica, sans-serif;
     `;
-  
+
 export const StyledLabel = styled.label`
 font-size: 13px;
   font-family: Arial, Helvetica, sans-serif;

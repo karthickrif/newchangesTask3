@@ -27,12 +27,11 @@ import {
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import moment from 'moment';
+import {directLogin} from '../Action';
 
 function ClientsTable(props) {
   const {
     dispatch,
-    data,
-    sessionData,
     clientData,
     isLoading,
     isError,
@@ -100,8 +99,12 @@ function ClientsTable(props) {
 
   useEffect(() => {
     dispatch(getClientData());
+    var locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+    }
   }, []);
-
+ 
   return (
     <>
       <TableContainer component={Paper} className="DataTable">
@@ -204,8 +207,6 @@ function ClientsTable(props) {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.LoginReducer && state.LoginReducer.loginData,
-    sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     clientData: state.ClientReducer && state.ClientReducer.clientData,
     isLoading: state.ClientReducer && state.ClientReducer.isLoading,
     isError: state.ClientReducer && state.ClientReducer.isError,

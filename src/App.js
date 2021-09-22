@@ -34,7 +34,6 @@ function App(props) {
     }else{
       setRedirect(false);
     } 
-    console.log('locStoragered', redirect);
   });
   function handleClose() {
     // setSnackStatus(false);

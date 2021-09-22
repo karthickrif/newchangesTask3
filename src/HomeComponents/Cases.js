@@ -22,6 +22,7 @@ import { appendCasesData, removeCasesData, editCasesData, getCasesData} from '..
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import moment from 'moment';
+import {directLogin} from '../Action';
 
 function CasesTable(props) {
   const { dispatch, casesData, isLoading, isError, navProgress, isSuccess} = props;
@@ -86,6 +87,10 @@ function CasesTable(props) {
 
   useEffect(() => {
     dispatch(getCasesData());
+    var locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+    }
   }, []);
   return (
     <>

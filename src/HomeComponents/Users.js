@@ -22,6 +22,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {appendUserData, removeUserData, editUserData, getUsersData,} from '../Action';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import {directLogin} from '../Action';
 
 function UsersTable(props) {
   const { dispatch, usersData, isLoading, isError, navProgress, isSuccess} =
@@ -90,6 +91,10 @@ function UsersTable(props) {
 
   useEffect(() => {
     dispatch(getUsersData());
+    var locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+    }
   }, []);
   return (
     <>

@@ -130,3 +130,9 @@ export function directLogin(val) {
     authToken: val,
   };
 }
+export function logOutAction() {
+  return {
+    type: 'logOutAction',
+    // authToken: val,
+  };
+}

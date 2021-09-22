@@ -15,32 +15,37 @@ import ClientsTable from './HomeComponents/Clients';
 import {directLogin} from './Action';
 var route;
 var snack;
-
+var locStorage;
 function App(props) {
-  const { dispatch, data, sessionData, authStatus } = props;
+  const { dispatch, data, sessionData, authStatus} = props;
   const [redirect, setRedirect] = useState(false);
+
+  useEffect(()=>{
+    locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+      // console.log('redirect to home',locStorage);
+    }
+  },[])
+
   useEffect(() => {
     if (sessionData != undefined) {
       setRedirect(true);
-    }
-    // console.log('locStorage', locStorage);
+    }else{
+      setRedirect(false);
+    } 
+    console.log('locStoragered', redirect);
   });
   function handleClose() {
     // setSnackStatus(false);
   }
-  useEffect(()=>{
-    var locStorage = localStorage.getItem('authToken');
-    if(locStorage != null && locStorage != undefined){
-      dispatch(directLogin(locStorage));
-      console.log('redirect to home');
-    }
-  },[])
   if (redirect) {
     return (
       <>
         <Router>
           <Route exact path="/home" children={<HomePage />} />
-          <Redirect to="/home" />
+          <Redirect from="/login" to="/home" />
+          {/* <Route exact path="/home/clients" children={<ClientsTable />} /> */}
         </Router>
         <Snackbar
           open={authStatus != undefined && authStatus == 'success' && redirect}
@@ -54,15 +59,13 @@ function App(props) {
         </Snackbar>
       </>
     );
-  } else {
+  } else{
     return (
       <>
         <Router>
           <Switch>
             <Route exact path="/login" children={<LoginPage />} />
-            <Route exact path="/home" children={<HomePage />} />
             <Redirect from="/" to="/login" />
-            <Route exact path="/home/clients" children={<ClientsTable />} />
           </Switch>
         </Router>
         <Snackbar

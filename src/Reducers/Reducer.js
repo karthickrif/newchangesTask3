@@ -1,6 +1,6 @@
 const initialState = {
   loginData: {},
-  signinStatus : false,
+  signinStatus: false,
 };
 
 const LoginReducer = (state = initialState, action) => {
@@ -8,20 +8,23 @@ const LoginReducer = (state = initialState, action) => {
     case 'GetLoginData':
       return {
         loginData: action.value,
-        signinStatus : true,
+        signinStatus: true,
+        logOutStatus: false,
       };
     case 'ReceiveApiData':
       return {
         loginData: state.loginData,
         sessionData: action.value,
-        signinStatus : false,
+        signinStatus: false,
+        logOutStatus: false,
       };
     case 'ReceiveAuthToken':
       return {
         loginData: state.loginData,
         sessionData: state.sessionData,
         authToken: action.value,
-        signinStatus : false,
+        signinStatus: false,
+        logOutStatus: false,
       };
     case 'FailedAuthToken':
       return {
@@ -30,11 +33,19 @@ const LoginReducer = (state = initialState, action) => {
         authToken: state.authToken,
         authStatus: action.status,
         authStatusData: action.value,
-        signinStatus : false,
+        signinStatus: false,
+        logOutStatus: false,
+      };
+    case 'logOutAction':
+      return {
+        loginData: state.loginData,
+        authToken: state.authToken,
+        authStatus: state.authStatus,
+        authStatusData: state.authStatusData,
+        signinStatus: false,
       };
     default:
       return state;
   }
 };
 export default LoginReducer;
-

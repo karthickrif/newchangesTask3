@@ -138,6 +138,8 @@ select {
   font-size: 25px;
   width: 96% !important;
   margin: 20px 2% !important;
+  display: flex;
+  justify-content: space-between;
 }
 .UserName {
   color: rgb(0, 122, 255);

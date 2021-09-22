@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CasesTable from './HomeComponents/Cases';
 import UsersTable from './HomeComponents/Users';
 import ClientsTable from './HomeComponents/Clients';
+import LoginPage from './Login';
 import { GetClientTable } from './Reducers/ClientReducer';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import {
@@ -25,6 +26,9 @@ import {
   Redirect,
 } from 'react-router-dom';
 var logo;
+import {logOutAction} from './Action';
+import App from './App';
+
 function HomePage(props) {
   const { dispatch, data, sessionData, clientNavProgress, casesNavProgress, usersNavProgress} = props;
   const [logo, setLogo] = useState({
@@ -88,6 +92,11 @@ function HomePage(props) {
     }
   }
 
+  function logOut(){
+    localStorage.setItem('authToken','');
+    dispatch(logOutAction());
+  }
+
   return (
     <>
       <Router>
@@ -110,8 +119,6 @@ function HomePage(props) {
               <Fade in={fade.value}>
                 <div>
                   <Grid item>
-                    <Grid container spacing={10}>
-                      <Grid item xs={6}>
                         <img
                         src={
                           sessionData != undefined
@@ -121,20 +128,6 @@ function HomePage(props) {
                         alt="profile"
                         className="profile_img"
                       />
-                      </Grid>
-                      <Grid item xs={6}>
-                          <Button variant="contained" className="sigin_btn">
-                            {/* {!signinStatus ? (
-                              'Sign in'
-                            ) : (
-                              <div>
-                                Sign in &nbsp;
-                                {<CircularProgress className="circular_progress" />}
-                              </div>
-                            )} */}Logout
-                          </Button>
-                      </Grid>
-                    </Grid>
                   </Grid>
                   <Grid item className="leftsidebarOptions">
                     <Link to="/home/clients" className="homeLink">
@@ -189,12 +182,17 @@ function HomePage(props) {
               </Toolbar>
             </AppBar>
             <div className="GreetUser">
+              <div>
               Welcome{' '}
               <span className="UserName">
                 {sessionData != undefined && sessionData.name != undefined
                   ? sessionData.name + '!'
                   : 'User!'}
               </span>
+              </div>
+                <Button variant="contained" className="sigin_btn" onClick={logOut}>
+                    Logout
+                </Button>             
             </div>
             <div>&nbsp;</div>
             <Switch>

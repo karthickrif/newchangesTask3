@@ -70,7 +70,9 @@ const ClientReducer = (state = clientState, action) => {
         action.status.error != undefined ? _.values(action.status.error) : '';
 
       var formattedDate = action.response != undefined ? temp.map(values => {
-       return  values.dob = moment(values.dob).format('YYYY-MM-DD');
+        if(values.dob != undefined && values.dob != null ){
+          return  values.dob = moment(values.dob).format('YYYY-MM-DD');
+        }
       }) : '';
       console.log('ClientReducer', action, temp);
       return {

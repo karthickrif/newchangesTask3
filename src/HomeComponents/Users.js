@@ -24,7 +24,7 @@ import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
 function UsersTable(props) {
-  const { dispatch, usersData, isLoading, isError, navProgress } =
+  const { dispatch, usersData, isLoading, isError, navProgress, isSuccess} =
     props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
@@ -167,6 +167,16 @@ function UsersTable(props) {
       {isError.status == true && isError.message != undefined ? isError.message[0] : 'Error'}
     </MuiAlert>
   </Snackbar>
+  <Snackbar
+        open={isSuccess != undefined && isSuccess == true}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={handleClose}
+      >
+        <MuiAlert severity="success" elevation={6} variant="filled">
+          Success!
+        </MuiAlert>
+      </Snackbar>
   </>
   );
 }
@@ -179,6 +189,7 @@ const mapStateToProps = (state) => {
     isLoading: state.UsersReducer && state.UsersReducer.isLoading,
     navProgress: state.UsersReducer && state.UsersReducer.navProgress,
     isError : state.UsersReducer && state.UsersReducer.isError,
+    isSuccess : state.UsersReducer && state.UsersReducer.isSuccess,
   };
 };
 

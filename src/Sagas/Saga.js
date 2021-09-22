@@ -27,7 +27,6 @@ function* asyncAPIData(action) {
   try{
   const authToken = yield select(getAuthToken);
   const ApiResponse = yield call(ModifyClient, action, authToken);
-  // yield delay(5000);
   yield put({
     type: action.target,
     response: ApiResponse.status == 200 ? ApiResponse.data : '',
@@ -50,7 +49,7 @@ function* asyncAPIData(action) {
       prevAction: action.type,
     });
   }
-  console.log('ApiResponseIve', ApiResponse.response, action.type);
+  // console.log('ApiResponseIve', ApiResponse.response, action.type);
 }catch(e){
   console.log("asyncAPIDataError",e);
 }

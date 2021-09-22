@@ -9,6 +9,7 @@ const casesState = {
   navProgress: false,
   isLoading: false,
   isError : false,
+  isSuccess : false,
 };
 
 const CasesReducer = (state = casesState, action) => {
@@ -19,6 +20,7 @@ const CasesReducer = (state = casesState, action) => {
         navProgress: true,
         isLoading: false,
         isError : false,
+        isSuccess : false,
       };
     case 'AppendCasesData':
       return {
@@ -26,6 +28,7 @@ const CasesReducer = (state = casesState, action) => {
         navProgress: false,
         isLoading: true,
         isError : false,
+        isSuccess : false,
       };
     case 'removeCasesData':
       return {
@@ -40,6 +43,7 @@ const CasesReducer = (state = casesState, action) => {
         navProgress : false,
         isLoading: true,
         isError : false,
+        isSuccess : false,
       };
     case 'UpdateCasesResponse':
       if (action.prevAction == 'AppendCasesData') {
@@ -64,7 +68,9 @@ const CasesReducer = (state = casesState, action) => {
       action.status.error != undefined ? _.values(action.status.error) : '';
 
       var formattedDate = action.response != undefined ? temp.map(values => {
-        return  values.date_of_loss = moment(values.date_of_loss).format('YYYY-MM-DD');
+        if(values.date_of_loss != undefined && values.date_of_loss != null ){
+          return  values.date_of_loss = moment(values.date_of_loss).format('YYYY-MM-DD');
+        }
        }) : '';
       return {
         casesData:
@@ -77,6 +83,7 @@ const CasesReducer = (state = casesState, action) => {
           status : true,
         message : errorMsg,
         } : false,
+        isSuccess : action.prevAction != 'GetCasesData' && action.status == 'Success' ? true : false,
       };
     default:
       return state;

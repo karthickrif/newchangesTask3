@@ -137,7 +137,7 @@ function ClientsTable(props) {
                   <TableCell align="left">{values.phone}</TableCell>
                   <TableCell align="left">{values.address}</TableCell>
                   <TableCell align="left">
-                    {moment(values.dob).format('MM/DD/YYYY')}
+                    {values.dob != undefined ? moment(values.dob).format('MM/DD/YYYY') : values.dob}
                   </TableCell>
                   <TableCell align="left">
                     <IconButton id={index} onClick={() => handleEdit(index)}>

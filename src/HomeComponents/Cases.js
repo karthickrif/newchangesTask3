@@ -24,7 +24,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import moment from 'moment';
 
 function CasesTable(props) {
-  const { dispatch, data, sessionData, casesData, isLoading, isError, navProgress} = props;
+  const { dispatch, casesData, isLoading, isError, navProgress, isSuccess} = props;
   const [dialogStatus, setDialogStatus] = useState({ status: false });
   const [delayRow, setdelayRow] = useState(false);
 
@@ -120,7 +120,7 @@ function CasesTable(props) {
                 <TableCell align="left">{values.case_number}</TableCell>
                 <TableCell align="left">{values.claim_number}</TableCell>
                 <TableCell align="left">{values.matter_id}</TableCell>
-                <TableCell align="left">{moment(values.date_of_loss).format('MM/DD/YYYY')}</TableCell>
+                <TableCell align="left">{values.date_of_loss != undefined && values.date_of_loss != null? moment(values.date_of_loss).format('MM/DD/YYYY') : values.date_of_loss}</TableCell>
                 <TableCell align="left">{values.county}</TableCell>
                 <TableCell align="left">{values.state}</TableCell>
                 <TableCell align="left">
@@ -171,6 +171,16 @@ function CasesTable(props) {
       {isError.status == true && isError.message != undefined ? isError.message[0] : 'Error'}
     </MuiAlert>
   </Snackbar>
+  <Snackbar
+        open={isSuccess != undefined && isSuccess == true}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={handleClose}
+      >
+        <MuiAlert severity="success" elevation={6} variant="filled">
+          Success!
+        </MuiAlert>
+      </Snackbar>
   </>
   );
 }
@@ -183,6 +193,7 @@ const mapStateToProps = (state) => {
     isLoading: state.CasesReducer && state.CasesReducer.isLoading,
     isError : state.CasesReducer && state.CasesReducer.isError,
     navProgress : state.CasesReducer && state.CasesReducer.navProgress,
+    isSuccess : state.CasesReducer && state.CasesReducer.isSuccess,
   };
 };
 

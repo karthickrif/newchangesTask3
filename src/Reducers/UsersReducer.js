@@ -7,6 +7,7 @@ const usersState = {
   navProgress : false,
   isLoading : false,
   isError : false,
+  isSuccess : false,
 };
 
 const UsersReducer = (state = usersState, action) => {
@@ -17,6 +18,7 @@ const UsersReducer = (state = usersState, action) => {
         navProgress : true,
         isLoading : false,
         isError : false,
+        isSuccess : false,
       };
     case 'AppendUserData':
       return {
@@ -24,6 +26,7 @@ const UsersReducer = (state = usersState, action) => {
         navProgress : false,
         isLoading : true,
         isError : false,
+        isSuccess : false,
       };
     case 'RemoveUserData':
       return {
@@ -31,6 +34,7 @@ const UsersReducer = (state = usersState, action) => {
         navProgress : false,
         isLoading : true,
         isError : false,
+        isSuccess : false,
       };
     case 'EditUserData':
       return {
@@ -38,6 +42,7 @@ const UsersReducer = (state = usersState, action) => {
         navProgress : false,
         isLoading : true,
         isError : false,
+        isSuccess : false,
       };
       case 'UpdateUsersResponse':
         if (action.prevAction == 'AppendUserData') {
@@ -70,6 +75,7 @@ const UsersReducer = (state = usersState, action) => {
             status : true,
           message : errorMsg,
           } : false,
+          isSuccess : action.prevAction != 'GetUsersData' && action.status == 'Success' ? true : false,
         };
     default:
       return state;

@@ -64,7 +64,7 @@ const UsersReducer = (state = usersState, action) => {
         }
         var errorMsg =
         action.status.error != undefined ? _.values(action.status.error) : '';
-        console.log('ClientReducer', action, temp);
+        // console.log('UserReducer', action, temp);
         return {
           usersData: action.status == 'Success' && action.response != undefined
               ? temp

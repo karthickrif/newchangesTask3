@@ -76,7 +76,6 @@ function ClientsTable(props) {
       editStatus: dialogStatus.editStatus,
       editIndex: dialogStatus.editIndex,
     });
-    console.log(values, 'check');
   }
   if (
     dialogStatus.dispatchStatus != undefined &&

@@ -4,12 +4,14 @@ import {
   FetchfromSessionApi,
   ModifyClient,
 } from './FetchData';
+const getAuthToken = (state) => state.LoginReducer.authToken;
 
 function* loginAsync(action) {
   const authData = yield call(FetchFromLoginApi, action.value);
   yield delay(1000);
   if (authData.authToken != undefined) {
     const sessionData = yield call(FetchfromSessionApi, authData.authToken);
+    localStorage.setItem('authToken',authData.authToken);
     yield put({ type: 'ReceiveApiData', value: sessionData });
     yield put({ type: 'ReceiveAuthToken', value: authData.authToken });
     yield put({ type: 'FailedAuthToken', value: authData, status: 'success' });
@@ -21,8 +23,15 @@ function* loginAsync(action) {
     yield put({ type: 'FailedAuthToken', value: authData, status: '' });
   }
 }
-const getAuthToken = (state) => state.LoginReducer.authToken;
 
+function* directSignin(action){
+  const sessionData = yield call(FetchfromSessionApi, action.authToken);
+    yield put({ type: 'ReceiveApiData', value: sessionData });
+    yield put({ type: 'ReceiveAuthToken', value: action.authToken });
+    // yield put({ type: 'FailedAuthToken', value: authData, status: 'success' });
+    // yield delay(3000);
+    // yield put({ type: 'FailedAuthToken', value: authData, status: '' });
+}
 function* asyncAPIData(action) {
   try{
   const authToken = yield select(getAuthToken);
@@ -58,6 +67,7 @@ function* asyncAPIData(action) {
 export function* rootSaga() {
   yield all([
     takeLatest('GetLoginData', loginAsync),
+    takeLatest('directLogin', directSignin),
     takeLatest('GetClientData', asyncAPIData),
     takeLatest('GetCasesData', asyncAPIData),
     takeLatest('GetUsersData', asyncAPIData),

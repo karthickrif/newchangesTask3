@@ -19,8 +19,7 @@ export function getClientData() {
   };
 }
 
-export function getCasesData(val) {
-  console.log('getCasesData', val);
+export function getCasesData() {
   return {
     type: GET_CASESDATA,
     method: 'GET',
@@ -29,7 +28,7 @@ export function getCasesData(val) {
   };
 }
 
-export function getUsersData(val) {
+export function getUsersData() {
   return {
     type: GET_USERSDATA,
     method: 'GET',
@@ -122,5 +121,12 @@ export function editUserData(val, userId) {
     actionUrl: 'https://staging-api.esquiretek.com/users/' + userId,
     formData: val,
     target: 'UpdateUsersResponse',
+  };
+}
+
+export function directLogin(val) {
+  return {
+    type: 'directLogin',
+    authToken: val,
   };
 }

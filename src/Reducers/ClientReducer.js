@@ -4,7 +4,6 @@ import Array from 'lodash/Array';
 import axios from 'axios';
 import moment from 'moment';
 
-
 const clientState = {
   clientData: [],
   navProgress : false,
@@ -74,7 +73,7 @@ const ClientReducer = (state = clientState, action) => {
           return  values.dob = moment(values.dob).format('YYYY-MM-DD');
         }
       }) : '';
-      console.log('ClientReducer', action, temp);
+      // console.log('ClientReducer', action, temp);
       return {
         clientData:
           action.status == 'Success' && action.response != undefined
@@ -93,23 +92,3 @@ const ClientReducer = (state = clientState, action) => {
   }
 };
 export default ClientReducer;
-
-// export const GetClientTable = () => (dispatch, getState) => {
-//   const token = getState().LoginReducer.authToken;
-//   const method = getState().ClientReducer.method;
-//   // console.log("GetUserTable",method);
-//   axios({
-//     method: 'GET',
-//     url: 'https://staging-api.esquiretek.com/clients',
-//     headers: {
-//       authorization: token,
-//     },
-//   })
-//     .then((response) => {
-//       // console.log('GetUserTable_response', response);
-//       dispatch(getClientData(response.data));
-//     })
-//     .catch((error) => {
-//       // console.log("err",error);
-//     });
-// };

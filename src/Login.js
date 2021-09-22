@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { GetLoginData } from './Action';
+import { GetLoginData, directLogin} from './Action';
 import MailOutline from '@material-ui/icons/MailOutline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -54,7 +54,13 @@ function LoginPage(props) {
     //     reactivation_token: false, progressStatus: false });
     // }, 5000);
   }
-
+  useEffect(()=>{
+    var locStorage = localStorage.getItem('authToken');
+    if(locStorage != null && locStorage != undefined){
+      dispatch(directLogin(locStorage));
+      console.log('redirect to home');
+    }
+  },[])
   return (
     <div>
       <Grid container justifyContent="center" alignItems="center">

@@ -7,7 +7,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -21,6 +21,7 @@ function App(props) {
     if (sessionData != undefined) {
       setRedirect(true);
     }
+    // console.log('locStorage', locStorage);
   });
   function handleClose() {
     // setSnackStatus(false);
@@ -28,11 +29,16 @@ function App(props) {
   if (redirect) {
     return (
       <>
-      <Router>
-        <Route exact path="/home" children={<HomePage />} />
-        <Redirect to="/home" />
-      </Router>
-      <Snackbar open={authStatus != undefined && authStatus == 'success' && redirect}          autoHideDuration={5000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}      onClose={handleClose}>
+        <Router>
+          <Route exact path="/home" children={<HomePage />} />
+          <Redirect to="/home" />
+        </Router>
+        <Snackbar
+          open={authStatus != undefined && authStatus == 'success' && redirect}
+          autoHideDuration={5000}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          onClose={handleClose}
+        >
           <MuiAlert severity="success" elevation={6} variant="filled">
             Successfly Logged
           </MuiAlert>
@@ -50,7 +56,12 @@ function App(props) {
             <Route exact path="/home/clients" children={<ClientsTable />} />
           </Switch>
         </Router>
-        <Snackbar open={authStatus != undefined && authStatus == 'failed' && !redirect}         autoHideDuration={5000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}     onClose={handleClose}>
+        <Snackbar
+          open={authStatus != undefined && authStatus == 'failed' && !redirect}
+          autoHideDuration={5000}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          onClose={handleClose}
+        >
           <MuiAlert severity="error" elevation={6} variant="filled">
             Sign In Failed
           </MuiAlert>
@@ -60,21 +71,18 @@ function App(props) {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
-    authStatus: state.LoginReducer && state.LoginReducer.authStatus
+    authStatus: state.LoginReducer && state.LoginReducer.authStatus,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

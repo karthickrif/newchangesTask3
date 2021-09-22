@@ -15,13 +15,12 @@ import MailOutline from '@material-ui/icons/MailOutline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 function LoginPage(props) {
+  const { dispatch, data, sessionData, signinStatus} = props;
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
     reactivation_token: false,
-    progressStatus: false
   });
-  const { dispatch, data, sessionData } = props;
 
   function getLoginValues(e) {
     let email;
@@ -31,7 +30,6 @@ function LoginPage(props) {
         email: e.target.value,
         password: loginData.password,
         reactivation_token: false,
-        progressStatus: false,
         snackStatus: loginData.snackStatus
       });
     } else {
@@ -39,7 +37,6 @@ function LoginPage(props) {
         email: loginData.email,
         password: e.target.value,
         reactivation_token: false,
-        progressStatus: false,
         snackStatus: loginData.snackStatus
       });
     }
@@ -48,14 +45,14 @@ function LoginPage(props) {
     loginData != undefined
       ? dispatch(GetLoginData(loginData))
       : alert('Check entered values');
-    setLoginData({email: loginData.email,
-      password: loginData.password,
-      reactivation_token: false, progressStatus: true });
-    setTimeout(() => {
-      setLoginData({email: loginData.email,
-        password: loginData.password,
-        reactivation_token: false, progressStatus: false });
-    }, 5000);
+    // setLoginData({email: loginData.email,
+    //   password: loginData.password,
+    //   reactivation_token: false, progressStatus: true });
+    // setTimeout(() => {
+    //   setLoginData({email: loginData.email,
+    //     password: loginData.password,
+    //     reactivation_token: false, progressStatus: false });
+    // }, 5000);
   }
 
   return (
@@ -97,7 +94,7 @@ function LoginPage(props) {
               onClick={passLoginData}
               className="sigin_btn"
             >
-              {loginData.progressStatus == false ? (
+              {!signinStatus ? (
                 'Sign in'
               ) : (
                 <div>
@@ -116,6 +113,7 @@ const mapStateToProps = state => {
   return {
     data: state.LoginReducer && state.LoginReducer.loginData,
     sessionData: state.LoginReducer && state.LoginReducer.sessionData,
+    signinStatus : state.LoginReducer && state.LoginReducer.signinStatus,
   };
 };
 

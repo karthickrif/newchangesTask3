@@ -13,11 +13,11 @@ function* loginAsync(action) {
     yield put({ type: 'ReceiveApiData', value: sessionData });
     yield put({ type: 'ReceiveAuthToken', value: authData.authToken });
     yield put({ type: 'FailedAuthToken', value: authData, status: 'success' });
-    yield delay(5000);
+    yield delay(3000);
     yield put({ type: 'FailedAuthToken', value: authData, status: '' });
   } else {
     yield put({ type: 'FailedAuthToken', value: authData, status: 'failed' });
-    yield delay(5000);
+    yield delay(3000);
     yield put({ type: 'FailedAuthToken', value: authData, status: '' });
   }
 }

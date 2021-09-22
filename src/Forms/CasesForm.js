@@ -14,7 +14,7 @@ function CasesForm(props) {
       <div className="input_area">
         <div className="name">
           <div className="compart">
-            <StyledLabel htmlFor="clientID">Clients</StyledLabel>
+            <StyledLabel htmlFor="clientID">Client</StyledLabel>
             <Field name="client_id" type="input" component={renderSelectField}>
               <MenuItem>Select Any</MenuItem>
               {clientData != undefined && clientData.length > 0 ? (

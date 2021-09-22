@@ -98,7 +98,7 @@ function CasesTable(props) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="left">Client ID</TableCell>
+            <TableCell align="left">Client</TableCell>
             <TableCell align="left">Case Title</TableCell>
             <TableCell align="left">Case Number</TableCell>
             <TableCell align="left">Claim Number</TableCell>

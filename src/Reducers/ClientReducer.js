@@ -74,6 +74,7 @@ const ClientReducer = (state = clientState, action) => {
         }
       }) : '';
       // console.log('ClientReducer', action, temp);
+      
       return {
         clientData:
           action.status == 'Success' && action.response != undefined

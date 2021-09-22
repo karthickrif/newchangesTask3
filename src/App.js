@@ -24,7 +24,6 @@ function App(props) {
     locStorage = localStorage.getItem('authToken');
     if(locStorage != null && locStorage != undefined){
       dispatch(directLogin(locStorage));
-      // console.log('redirect to home',locStorage);
     }
   },[])
 

@@ -25,10 +25,16 @@ function* loginAsync(action) {
 }
 
 function* directSignin(action){
+  try{
   const sessionData = yield call(FetchfromSessionApi, action.authToken);
     yield put({ type: 'ReceiveApiData', value: sessionData });
     yield put({ type: 'ReceiveAuthToken', value: action.authToken });
+  }catch(e){
+    console.log("directSigninCatch",e);
+  }
 }
+
+
 function* asyncAPIData(action) {
   try{
   const authToken = yield select(getAuthToken);

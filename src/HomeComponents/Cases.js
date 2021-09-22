@@ -192,8 +192,6 @@ function CasesTable(props) {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.LoginReducer && state.LoginReducer.loginData,
-    sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     casesData: state.CasesReducer && state.CasesReducer.casesData,
     isLoading: state.CasesReducer && state.CasesReducer.isLoading,
     isError : state.CasesReducer && state.CasesReducer.isError,

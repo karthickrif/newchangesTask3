@@ -2,16 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import styled, { keyframes } from 'styled-components';
 import {
-  FormControl,
   OutlinedInput,
   Select,
   Checkbox,
-  InputAdornment,
-  Paper,
-  Grid,
-  Typography,
   Button,
-  CircularProgress,
 } from '@material-ui/core';
 
 export const StyledField = styled(OutlinedInput)`
@@ -64,5 +58,13 @@ export const StyledSubmit = styled(Button)`
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(0, 122, 255, 0.9);
   color: #fff;
+  }
+`;
+
+export const StyledCheckbox = styled(Checkbox)`
+  color : red;
+
+  &:checked{
+    color:blue;
   }
 `;

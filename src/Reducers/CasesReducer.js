@@ -72,6 +72,7 @@ const CasesReducer = (state = casesState, action) => {
           return  values.date_of_loss = moment(values.date_of_loss).format('YYYY-MM-DD');
         }
        }) : '';
+       
       return {
         casesData:
           action.status == 'Success' && action.response != undefined

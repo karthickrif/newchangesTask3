@@ -188,8 +188,6 @@ function UsersTable(props) {
 
 const mapStateToProps = (state) => {
   return {
-    // data: state.LoginReducer && state.LoginReducer.loginData,
-    // sessionData: state.LoginReducer && state.LoginReducer.sessionData,
     usersData: state.UsersReducer && state.UsersReducer.usersData,
     isLoading: state.UsersReducer && state.UsersReducer.isLoading,
     navProgress: state.UsersReducer && state.UsersReducer.navProgress,

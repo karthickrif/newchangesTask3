@@ -33,9 +33,6 @@ function HomePage(props) {
   const { dispatch, data, sessionData, clientNavProgress, casesNavProgress, usersNavProgress} = props;
   const [logo, setLogo] = useState({
     img: '',
-    // clientcount: 0,
-    // casescount: 0,
-    // userscount: 0,
   });
   const [fade, setFade] = useState({
     value: true,
@@ -43,46 +40,6 @@ function HomePage(props) {
     navWidth: 'displayClass',
   });
   const [progStatus, setProgStatus] = useState(false);
-
-  // function getdata() {
-  //   if (logo.clientcount == 0) {
-      
-  //   }
-  //   setLogo({
-  //     img: logo.img,
-  //     clientcount: 1,
-  //     casescount: logo.casescount,
-  //     userscount: logo.userscount,
-  //   });
-  //   setProgStatus(true);
-  //   setTimeout(() => setProgStatus(false), 2000);
-  // }
-  // function getCases() {
-  //   if (logo.casescount == 0) {
-      
-  //   }
-  //   setLogo({
-  //     img: logo.img,
-  //     clientcount: logo.clientcount,
-  //     casescount: 1,
-  //     userscount: logo.userscount,
-  //   });
-  //   setProgStatus(true);
-  //   setTimeout(() => setProgStatus(false), 2000);
-  // }
-  // function getUsers() {
-  //   if (logo.userscount == 0) {
-      
-  //   }
-  //   setLogo({
-  //     img: logo.img,
-  //     clientcount: logo.clientcount,
-  //     casescount: logo.casescount,
-  //     userscount: 1,
-  //   });
-  //   setProgStatus(true);
-  //   setTimeout(() => setProgStatus(false), 2000);
-  // }
 
   function handleFade() {
     if (fade.value == true) {

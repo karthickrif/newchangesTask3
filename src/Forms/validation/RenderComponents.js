@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledField, StyledSelectField} from './FieldComponents';
+import { StyledField, StyledSelectField, StyledCheckbox} from './FieldComponents';
 import moment from 'react-moment';
 
 export const renderField = ({
@@ -74,4 +74,24 @@ export const phoneFormatter = (values) => {
   // const splitter = /.{1,3}/g;
   // values = values.substring(0, 10);
   // return values.substring(0, 7).match(splitter).join('-') + values.substring(7);
+};
+
+export const renderCheckbox = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { asyncValidating, touched, error, warning },
+  inputProps
+}) => {
+  return (
+    <>
+      <StyledCheckbox
+        className="FormInput"
+        {...input}
+        type={type}
+        // color="primary"
+      />
+    </>
+  );
 };

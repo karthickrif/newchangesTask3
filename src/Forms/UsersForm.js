@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import '../style.css';
 import { connect } from 'react-redux';
 import validate from './validation/FormValidation';
-import {renderField, renderSelectField} from './validation/RenderComponents';
+import {renderField, renderSelectField, renderCheckbox} from './validation/RenderComponents';
 import { StyledLabel, StyledSubmit} from './validation/FieldComponents';
 import {MenuItem,Checkbox} from '@material-ui/core';
 
@@ -38,7 +38,7 @@ function UsersForm(props) {
 
         <div className="compart">
           <StyledLabel htmlFor="isAdmin">Admin</StyledLabel>
-          <Field name="is_admin" component="input" type="checkbox"/>
+          <Field name="is_admin" component={renderCheckbox} type="checkbox"/>
         </div>
       </div>
       

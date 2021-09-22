@@ -151,7 +151,7 @@ select {
 .sideBarBtn {
   width: 100%;
 }
-.MuiButton-label {
+.sideBarBtn > .MuiButton-label {
   justify-content: space-between !important;
 }
 .home_toolbar {
@@ -168,6 +168,7 @@ select {
 button:disabled,
 button[disabled] {
   background-color: rgb(0, 122, 255, 0.6) !important;
+  color: #fff!important;
 }
 
 @media screen and (max-width: 767px) {

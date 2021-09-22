@@ -42,8 +42,8 @@ font-size: 13px;
   margin: 5px;
   font-weight: 500;
 `;
-export const StyledSubmit = styled.button`
-width: 120px;
+export const StyledSubmit = styled(Button)`
+  width: 120px;
   height: 40px;
   border-radius: 5px;
   border: 1px solid #d0d0d0;
@@ -53,4 +53,16 @@ width: 120px;
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(0, 122, 255, 0.9);
   color: #fff;
+  &:hover{
+    width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #d0d0d0;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(0, 122, 255, 0.9);
+  color: #fff;
+  }
 `;

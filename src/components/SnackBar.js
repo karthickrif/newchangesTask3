@@ -1,7 +1,8 @@
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
-function StyledSnackBar() {
+function StyledSnackBar(props) {
+  console.log("Snackbar",props);
   return (
     <>
       <Snackbar

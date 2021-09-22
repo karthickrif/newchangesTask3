@@ -48,7 +48,7 @@ function ClientForm(props) {
             type="text"
             placeholder="9999-999-999"
             maxLength="12"
-            format={phoneFormatter}
+            // format={phoneFormatter}
             // normalize={phoneFormatter}
           />
         </div>

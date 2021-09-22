@@ -10,6 +10,7 @@ const clientState = {
   navProgress : false,
   isLoading: false,
   isError: false,
+  isSuccess : false,
 };
 const ClientReducer = (state = clientState, action) => {
   switch (action.type) {
@@ -19,6 +20,7 @@ const ClientReducer = (state = clientState, action) => {
         navProgress : true,
         isLoading: false,
         isError: state.isError,
+        isSuccess : false,
       };
     case 'AppendClientData':
       return {
@@ -26,6 +28,7 @@ const ClientReducer = (state = clientState, action) => {
         navProgress : false,
         isLoading: true,
         isError: state.isError,
+        isSuccess : false,
       };
     case 'removeClientData':
       return {
@@ -33,6 +36,7 @@ const ClientReducer = (state = clientState, action) => {
         navProgress : false,
         isLoading: true,
         isError: state.isError,
+        isSuccess : false,
       };
     case 'editClientData':
       return {
@@ -40,10 +44,12 @@ const ClientReducer = (state = clientState, action) => {
         navProgress : false,
         isLoading: true,
         isError: state.isError,
+        isSuccess : false,
       };
     case 'UpdateClientResponse':
       if (action.prevAction == 'AppendClientData') {
         var temp = _.concat(state.clientData, action.response);
+        var callState = action.status == 'Success' ? true : false,
       } else if (action.prevAction == 'removeClientData') {
         var temp = _.filter(state.clientData, function (n) {
           return n.id != action.response.id;
@@ -59,7 +65,7 @@ const ClientReducer = (state = clientState, action) => {
       }else if (action.prevAction == 'GetClientData') {
         var temp = action.response;
       }
-      
+
       var errorMsg =
         action.status.error != undefined ? _.values(action.status.error) : '';
 
@@ -78,6 +84,7 @@ const ClientReducer = (state = clientState, action) => {
         message : errorMsg,
         } : false,
         navProgress : false,
+        isSuccess : action.prevAction != 'GetClientData' && action.status == 'Success' ? true : false,
       };
     default:
       return state;

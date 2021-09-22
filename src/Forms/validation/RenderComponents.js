@@ -54,7 +54,7 @@ export const renderPhone = ({
         {...input}
         type={type}
         placeholder={placeholder}
-        inputProps={{maxLength : 12}}
+        inputProps={{maxLength : 10}}
       />
       {touched &&
         ((error && <div className="error">{error}</div>) ||

@@ -37,6 +37,7 @@ function ClientsTable(props) {
     isLoading,
     isError,
     navProgress,
+    isSuccess,
   } = props;
   const [dialogStatus, setDialogStatus] = useState({
     status: false,
@@ -188,6 +189,16 @@ function ClientsTable(props) {
             : 'Error'}
         </MuiAlert>
       </Snackbar>
+      <Snackbar
+        open={isSuccess != undefined && isSuccess == true}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={handleClose}
+      >
+        <MuiAlert severity="success" elevation={6} variant="filled">
+          Success!
+        </MuiAlert>
+      </Snackbar>
     </>
   );
 }
@@ -200,6 +211,7 @@ const mapStateToProps = (state) => {
     isLoading: state.ClientReducer && state.ClientReducer.isLoading,
     isError: state.ClientReducer && state.ClientReducer.isError,
     navProgress: state.ClientReducer && state.ClientReducer.navProgress,
+    isSuccess : state.ClientReducer && state.ClientReducer.isSuccess,
   };
 };
 

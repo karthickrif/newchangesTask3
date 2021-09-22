@@ -10,9 +10,9 @@ const validate = (values) => {
   }
   if (!values.phone) {
     errors.phone = 'Required';
-  } else if (values.phone.match('^[0-9.-]*$') == null) {
+  } else if (values.phone.match('^[0-9]*$') == null) {
     errors.phone = 'Enter valid Contact number';
-  } else if (values.phone.length != 12) {
+  } else if (values.phone.length != 10) {
     errors.phone = 'Enter valid Contact number';
   }
   if (!values.client_id) {

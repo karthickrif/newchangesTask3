@@ -66,9 +66,7 @@ const CasesReducer = (state = casesState, action) => {
 
       var errorMsg =
       action.status.error != undefined ? _.values(action.status.error) : '';
-      // var flattenmsg = action.status.error != undefined ? _.flattenDeep(action.status.error) : '';
-
-      // console.log("flattenmsg",flattenmsg)
+      
       var formattedDate = action.response != undefined ? temp.map(values => {
         if(values.date_of_loss != undefined && values.date_of_loss != null ){
           return  values.date_of_loss = moment(values.date_of_loss).format('YYYY-MM-DD');

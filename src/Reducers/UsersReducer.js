@@ -65,9 +65,7 @@ const UsersReducer = (state = usersState, action) => {
         var errorMsg =
         action.status.error != undefined ? _.values(action.status.error) : '';
         // console.log('UserReducer', action, temp);
-        var flattenmsg = action.status.error != undefined ? _.flattenDeep(action.status) : '';
-
-      console.log("flattenmsg",flattenmsg)
+        
         return {
           usersData: action.status == 'Success' && action.response != undefined
               ? temp
